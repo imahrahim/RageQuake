@@ -1,28 +1,27 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView, FlatList, Image } from "react-native";
-import { Color, FontSize } from "../../constants/GlobalStyles";
-import data from "../../data/data";
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Image, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export default function RageCard() {
-  const renderItem = ({ item }) => (
-    <View style={styles.item}>
-        {/* Image Card Intensity if statement*/}
-      <Text style={styles.itemDate}>{item.timestamp}</Text>
-      <Text style={styles.itemTitle}>{item.title}</Text>
-      <Text style={styles.itemTitle}>{item.intensity}</Text>
-    </View>
-  );
+import { Color, FontSize } from "../../constants/GlobalStyles";
+
+
+export default function RageCard({ timestamp, title,id }) {
+const navigation = useNavigation();
+
+  function ragePressHandler(){
+    navigation.navigate('AddRage', { rageId: id})
+  }
+
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView style={styles.contentContainer}>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </SafeAreaView>
+    <Pressable onPress={ragePressHandler} style={({pressed}) => pressed  && styles.pressed}>
+    <View style={styles.item}>
+        {/* Image Card Intensity if statement*/}
+      <Text style={styles.itemDate}>{timestamp}</Text>
+      <Text style={styles.itemTitle}>{title}</Text>
+      <Text style={styles.itemTitle}></Text>
     </View>
+    </Pressable>
   );
 }
 
@@ -55,4 +54,7 @@ const styles = StyleSheet.create({
     color: Color.primary600,
     alignSelf: 'flex-end'
   },
+  pressed:{
+    opacity:0.75
+  }
 });

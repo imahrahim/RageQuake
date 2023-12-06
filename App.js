@@ -88,7 +88,7 @@ function RageQuake( {navigation}) {
       />
       
     </BottomTabs.Navigator>
-     <AddButton  onPress={() => navigation.navigate('AddRage')} />
+     <AddButton  onPress={() => navigation.navigate('AddRage')}  />
      </>
   );
 }
@@ -108,7 +108,7 @@ export default function App() {
           <Stack.Screen
             name="AddRage"
             component={AddRage}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, presentation: 'modal' }}
           />
         </Stack.Navigator>
       </NavigationContainer>

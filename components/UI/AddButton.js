@@ -5,9 +5,11 @@ import { Color } from '../../constants/GlobalStyles';
 
 const AddButton = ({ onPress }) => {
     return (
-      <Pressable onPress={onPress} style={styles.addButton}>
+      <View style={styles.addButton}>
+      <Pressable onPress={onPress} style={({pressed}) => pressed  && styles.pressed}>
        <Text style={styles.text}>+</Text>
       </Pressable>
+      </View>
     );
   };
 
@@ -36,6 +38,9 @@ const styles = StyleSheet.create({
             elevation: 5,
           },
         }),
+      },
+      pressed: {
+        opacity: 0.75,
       },
       text: {
         color: Color.primary600,

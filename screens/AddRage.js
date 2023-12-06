@@ -1,20 +1,28 @@
 import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Color, FontSize } from "../constants/GlobalStyles";
+import { useLayoutEffect } from "react";
 
-export default function Measurements({navigation}) {
+export default function Measurements({navigation, route}) {
+ const editedRageId = route.params?.rageId;
+ const isEditing = !!editedRageId;
+
+
+  
   return (
     <View style={styles.container}>
        <StatusBar style="dark" />
       <SafeAreaView style={styles.contentContainer}>
+
         <View style={styles.buttonContainer}>
           <Pressable onPress={()=> navigation.goBack()}>
-            <Text style={styles.buttonText}t>close</Text>
+            <Text style={styles.buttonText}>close</Text>
           </Pressable>
           <Pressable>
             <Text style={styles.buttonText}>save</Text>
           </Pressable>
         </View>
+        
         <View style={styles.manageContainer}>
         <Text style={styles.text}>RageQuake</Text>
         </View>
