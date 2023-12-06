@@ -10,7 +10,7 @@ const navigation = useNavigation();
 
   function ragePressHandler(){
     console.log('Navigating to AddRage with rageId:', id);
-    navigation.navigate('AddRage', { rageId: id})
+    navigation.navigate('ManageRage', { rageId: id, itemData: title})
   }
 
 

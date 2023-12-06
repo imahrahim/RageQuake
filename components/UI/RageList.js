@@ -1,6 +1,8 @@
 import { View, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import RageCard from './RageCard';
 
+import { Color, FontSize } from '../../constants/GlobalStyles';
+
 export default function RageList({ rageQuakes, fallbackText }) {
   if (rageQuakes.length === 0) {
     return <Text style={styles.infoText}>{fallbackText}</Text>;

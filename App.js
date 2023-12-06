@@ -15,7 +15,7 @@ const BottomTabs = createBottomTabNavigator();
 import { Color, FontSize } from "./constants/GlobalStyles";
 import Measurements from "./screens/Measurements";
 import Analysis from "./screens/Analysis";
-import AddRage from "./screens/AddRage";
+import ManageRage from "./screens/ManageRage";
 import AddButton from "./components/UI/AddButton";
 import RageContextProvider from "./store/rage-context";
 
@@ -89,7 +89,7 @@ function RageQuake( {navigation}) {
       />
       
     </BottomTabs.Navigator>
-     <AddButton  onPress={() => navigation.navigate('AddRage')}  />
+     <AddButton  onPress={() => navigation.navigate('ManageRage')}  />
      </>
   );
 }
@@ -108,8 +108,8 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="AddRage"
-            component={AddRage}
+            name="ManageRage"
+            component={ManageRage}
             options={{ headerShown: false, presentation: 'modal' }}
           />
         </Stack.Navigator>

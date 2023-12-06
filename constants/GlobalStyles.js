@@ -4,7 +4,7 @@
     sizeMenu: 15,
     sizeIntensity: 48,
     sizeTitle: 20,
-    sizeDescription: 10,
+    sizeDescription: 12,
     sizeDate: 12,
     
   };
@@ -20,9 +20,9 @@
   };
   /* Paddings */
   export const Padding = {
-    p_xl: 20,
-    p_16xl: 35,
-    p_3xs: 10,
+    paddingText: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
   };
   /* border radiuses */
   export const Border = {
@@ -30,3 +30,8 @@
     br_11xl: 30,
   };
   
+  export const Margin = {
+    marginContainerVertical: 25,
+    marginContainerHorizontal: 5,
+    marginContentVerticla: 10,
+  }
