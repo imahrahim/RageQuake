@@ -2,7 +2,7 @@
   /* font sizes */
   export const FontSize = {
     sizeMenu: 15,
-    sizeIntensity: 48,
+    sizeIntensity: 40,
     sizeTitle: 20,
     sizeDescription: 12,
     sizeDate: 12,

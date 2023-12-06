@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import { Color } from "../../constants/GlobalStyles";
 import Date from "./Date";
+import MultiSelect from "./MultiSelect";
 
 export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
   const [inputValue, setInputValue] = useState({
@@ -72,7 +73,7 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
           autoCapitalize: "words",
         }}
       />
-      <Text>{inputValue.timestamp.toString()}</Text>
+      <MultiSelect />
       <Input
         label="SHAKING RECAP"
         textInputConfig={{
