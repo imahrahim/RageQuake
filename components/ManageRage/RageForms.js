@@ -17,7 +17,7 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
   const [inputValue, setInputValue] = useState({
     title: "",
     timestamp: "",
-    intensity: "",
+    intensity: null,
     trigger: "",
     situation: "",
     description: "",
@@ -59,6 +59,15 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
     console.log("Selected Situation:", selectedSituation);
   };
 
+  const handleIntensitySelect = (selectedIntensity) => {
+    console.log("Selected Situation:", selectedIntensity);
+    setInputValue((currentInputValues) => ({
+      ...currentInputValues,
+      intensity: selectedIntensity,
+    }));
+  };
+
+
   return (
     <View>
       <View style={styles.buttonContainer}>
@@ -84,10 +93,16 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
         }}
       />
       <MultiSelect
-        label="INTENSITY RICHTER"
-        data={intensityData}
-        renderItem={({ item }) => <IntensityItem intensityData={item} onSelect={handleSelect}/>}
-      />
+      label="INTENSITY RICHTER"
+      data={intensityData}
+      renderItem={({ item }) => (
+        <IntensityItem
+          intensityData={item}
+          onSelect={handleIntensitySelect}
+          selected={inputValue.intensity === item.intensity}
+        />
+      )}
+    />
       <MultiSelect
         label="EPICENTER INSTIGATOR"
         data={triggers}

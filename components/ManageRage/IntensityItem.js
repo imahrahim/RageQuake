@@ -4,13 +4,12 @@ import { Color, FontSize } from '../../constants/GlobalStyles'
 import { useState } from 'react';
 
 
-export default function IntensityItem({ intensityData, onSelect }) {
-  const [selected, setSelected] = useState(false);
+export default function IntensityItem({ intensityData, onSelect, selected  }) {
 
   const handlePress = () => {
-    setSelected(!selected);
-    onSelect(intensityData);
+    onSelect(intensityData.intensity);
   };
+
 
   return (
     <Pressable onPress={handlePress}>
