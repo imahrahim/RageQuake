@@ -17,10 +17,31 @@ export default function Measurements({ navigation, route }) {
  }
 
  function cancelHandler(){
+
   navigation.goBack()
  }
 
  function confirmHandler(){
+  if (isEditing){
+    rageCtx.updateRage( editedRageId,
+      {
+        title: 'Fucking Cunt!!!!!',
+        timestamp: '06.12.2023 15:50',
+        intensity: 10,
+        trigger: 'Frustration',
+        situation: 'At Work',
+      }
+    )
+  } else {
+    rageCtx.addRage({
+      title: 'Fucking Cunt',
+      timestamp: '06.12.2023 15:50',
+      intensity: 8,
+      trigger: 'Frustration',
+      situation: 'At Work',
+    })
+  }
+  
   navigation.goBack()
  }
 

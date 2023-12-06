@@ -1,28 +1,25 @@
-import { View, Text, StyleSheet, SafeAreaView, FlatList } from 'react-native'
+import { View, StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import RageCard from './RageCard';
 
-import { Color, FontSize } from '../../constants/GlobalStyles';
-import RageCard  from './RageCard'
-import data from "../../data/data";
+export default function RageList({ rageQuakes, fallbackText }) {
+  if (rageQuakes.length === 0) {
+    return <Text style={styles.infoText}>{fallbackText}</Text>;
+  }
 
-function renderRageItem({item}){
-  return <RageCard {...item} />
-}
+  const renderRageItem = ({ item }) => <RageCard {...item} />;
 
-
-export default function RageList({ rageQuakes }) {
   return (
     <View style={styles.container}>
-    <SafeAreaView style={styles.contentContainer}>
-      <FlatList
-        data={rageQuakes}
-        renderItem={renderRageItem}
-        keyExtractor={(item) => item.id}
-      />
-    </SafeAreaView>
-  </View>
-  )
+      <SafeAreaView style={styles.contentContainer}>
+        <FlatList
+          data={rageQuakes}
+          renderItem={renderRageItem}
+          keyExtractor={(item) => item.id}
+        />
+      </SafeAreaView>
+    </View>
+  );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -34,8 +31,10 @@ const styles = StyleSheet.create({
     marginVertical: 75,
     marginHorizontal: 20,
   },
-  text: {
+  infoText: {
     color: Color.primary200,
-    fontSize: FontSize.sizeTitle
-  }
+    fontSize: FontSize.sizeDescription,
+    textAlign: 'center',
+    margin: 32,
+  },
 });

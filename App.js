@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
-import { useNavigation } from "@react-navigation/native";
+
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
