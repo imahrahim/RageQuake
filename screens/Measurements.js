@@ -1,41 +1,12 @@
-import { View, Text, StyleSheet, SafeAreaView, FlatList } from 'react-native'
+import { useContext } from "react";
 
-import { Color , FontSize} from '../constants/GlobalStyles';
-import RageCard from '../components/UI/RageCard';
-import data from "../data/data";
+import RageList from '../components/UI/RageList'
+import { RageContext } from "../store/rage-context";
 
-function renderRageItem(data){
-  return <RageCard {...data.item} />
+function Measurements(){
+  const rageCtx = useContext(RageContext);
+
+  return <RageList rageQuakes={rageCtx.rageQuakes} />
 }
 
-
-export default function Measurements() {
-  return (
-    <View style={styles.container}>
-    <SafeAreaView style={styles.contentContainer}>
-      <FlatList
-        data={data}
-        renderItem={renderRageItem}
-        keyExtractor={(item) => item.id}
-      />
-    </SafeAreaView>
-  </View>
-  )
-}
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Color.primary600,
-  },
-  contentContainer: {
-    flex: 1,
-    marginVertical: 75,
-    marginHorizontal: 20,
-  },
-  text: {
-    color: Color.primary200,
-    fontSize: FontSize.sizeTitle
-  }
-});
+export default Measurements

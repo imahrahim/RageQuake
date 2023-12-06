@@ -17,6 +17,7 @@ import Measurements from "./screens/Measurements";
 import Analysis from "./screens/Analysis";
 import AddRage from "./screens/AddRage";
 import AddButton from "./components/UI/AddButton";
+import RageContextProvider from "./store/rage-context";
 
 function RageQuake( {navigation}) {
   const [fontsLoaded] = useFonts({
@@ -98,6 +99,7 @@ export default function App() {
     <View style={styles.container}>
     <>
       <StatusBar style="light" />
+      <RageContextProvider>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -112,6 +114,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      </RageContextProvider>
     </>
     </View>
   );

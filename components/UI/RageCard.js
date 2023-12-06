@@ -9,6 +9,7 @@ export default function RageCard({ timestamp, title,id }) {
 const navigation = useNavigation();
 
   function ragePressHandler(){
+    console.log('Navigating to AddRage with rageId:', id);
     navigation.navigate('AddRage', { rageId: id})
   }
 

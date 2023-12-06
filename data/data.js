@@ -1,5 +1,6 @@
 const data = [
     {
+      id: 'r1',
       title: 'Angry Bitch',
       timestamp: '01.11.2023 08:15',
       intensity: 5,
@@ -7,6 +8,7 @@ const data = [
       situation: 'At work',
     },
     {
+      id: 'r2',
       title: 'Weary Wanderer',
       timestamp: '01.11.2023 15:30',
       intensity: 3,
@@ -14,6 +16,7 @@ const data = [
       situation: 'In social situations or at events',
     },
     {
+      id: 'r3',
       title: 'Awkward Homecoming',
       timestamp: '02.11.2023 09:20',
       intensity: 4,
@@ -21,6 +24,7 @@ const data = [
       situation: 'At home',
     },
     {
+      id: 'r4',
       title: 'Hangry Explorer',
       timestamp: '03.11.2023 14:10',
       intensity: 7,
@@ -28,6 +32,7 @@ const data = [
       situation: 'In nature',
     },
     {
+      id: 'r5',
       title: 'Insecure Athlete',
       timestamp: '04.11.2023 11:55',
       intensity: 5,
@@ -35,6 +40,7 @@ const data = [
       situation: 'During sport',
     },
     {
+      id: 'r6',
       title: 'Self-Reflection Scholar',
       timestamp: '05.11.2023 21:25',
       intensity: 9,
@@ -42,6 +48,7 @@ const data = [
       situation: 'At university or school',
     },
     {
+      id: 'r7',
       title: 'Privacy Invaded',
       timestamp: '06.11.2023 10:30',
       intensity: 10,
@@ -49,6 +56,7 @@ const data = [
       situation: 'During leisure time',
     },
     {
+      id: 'r8',
       title: 'Illness Blues',
       timestamp: '07.11.2023 20:15',
       intensity: 8,
@@ -56,6 +64,7 @@ const data = [
       situation: 'At work',
     },
     {
+      id: 'r9',
       title: 'Traffic Jam Woes',
       timestamp: '08.11.2023 09:25',
       intensity: 1,
@@ -63,6 +72,7 @@ const data = [
       situation: 'At work',
     },
     {
+      id: 'r10',
       title: 'Home Alone Stress',
       timestamp: '09.11.2023 19:10',
       intensity: 10,
@@ -70,6 +80,7 @@ const data = [
       situation: 'At home',
     },
     {
+      id: 'r11',
       title: 'Hunger Pangs',
       timestamp: '10.11.2023 10:15',
       intensity: 3,
@@ -77,6 +88,7 @@ const data = [
       situation: 'In nature',
     },
     {
+      id: 'r12',
       title: 'Playtime Disappointment',
       timestamp: '11.11.2023 11:55',
       intensity: 2,
@@ -84,6 +96,7 @@ const data = [
       situation: 'In social situations or at events',
     },
     {
+      id: 'r13',
       title: 'Privacy Invasion Blues',
       timestamp: '12.11.2023 08:35',
       intensity: 4,
@@ -91,6 +104,7 @@ const data = [
       situation: 'When shopping',
     },
     {
+      id: 'r14',
       title: 'Illness Struggles',
       timestamp: '13.11.2023 18:10',
       intensity: 1,
@@ -98,6 +112,7 @@ const data = [
       situation: 'At work',
     },
     {
+      id: 'r15',
       title: 'Friendship Dispute',
       timestamp: '14.11.2023 13:55',
       intensity: 10,
@@ -105,6 +120,7 @@ const data = [
       situation: 'At work',
     },
     {
+      id: 'r16',
       title: 'Unexpected Challenge',
       timestamp: '15.11.2023 10:55',
       intensity: 8,
@@ -112,6 +128,7 @@ const data = [
       situation: 'In social situations or at events',
     },
     {
+      id: 'r17',
       title: 'Emotional Rollercoaster',
       timestamp: '15.11.2023 15:45',
       intensity: 5,
@@ -119,6 +136,7 @@ const data = [
       situation: 'In social situations or at events',
     },
     {
+      id: 'r18',
       title: 'Daily Grind Stress',
       timestamp: '16.11.2023 20:40',
       intensity: 2,
@@ -126,6 +144,7 @@ const data = [
       situation: 'At work',
     },
     {
+      id: 'r19',
       title: 'Traffic Frustration',
       timestamp: '17.11.2023 11:35',
       intensity: 7,
@@ -133,118 +152,14 @@ const data = [
       situation: 'In traffic',
     },
     {
+      id: 'r20',
       title: 'Frantic Driver',
       timestamp: '18.11.2023 12:45',
       intensity: 8,
       trigger: 'Frustration',
       situation: 'In traffic',
-    },
-    {
-      title: 'Justice Seeker',
-      timestamp: '18.11.2023 19:05',
-      intensity: 6,
-      trigger: 'Injustice',
-      situation: 'When shopping',
-    },
-    {
-      title: 'Tech Frustration',
-      timestamp: '19.11.2023 12:10',
-      intensity: 5,
-      trigger: 'Technology problems',
-      situation: 'At work',
-    },
-    {
-      title: 'Argumentative Day',
-      timestamp: '20.11.2023 17:05',
-      intensity: 2,
-      trigger: 'Disagreement',
-      situation: 'At work',
-    },
-    {
-      title: 'Misunderstood Maven',
-      timestamp: '21.11.2023 08:55',
-      intensity: 7,
-      trigger: 'Not being understood',
-      situation: 'At work',
-    },
-    {
-      title: 'Unexpected Twist',
-      timestamp: '22.11.2023 13:40',
-      intensity: 4,
-      trigger: 'Other',
-      situation: 'In social situations or at events',
-    },
-    {
-      title: 'Rage Unleashed',
-      timestamp: '23.11.2023 18:30',
-      intensity: 6,
-      trigger: 'Stress',
-      situation: 'In traffic',
-    },
-    {
-      title: 'Social Fatigue',
-      timestamp: '24.11.2023 14:15',
-      intensity: 9,
-      trigger: 'Fatigue',
-      situation: 'During leisure time',
-    },
-    {
-      title: 'Hunger Pangs',
-      timestamp: '24.11.2023 10:15',
-      intensity: 3,
-      trigger: 'Hunger',
-      situation: 'In nature',
-    },
-    {
-      title: 'Study Critic',
-      timestamp: '25.11.2023 16:45',
-      intensity: 7,
-      trigger: 'Self-criticism',
-      situation: 'At university or school',
-    },
-    {
-      title: 'Disrespected Leisure',
-      timestamp: '26.11.2023 13:20',
-      intensity: 6,
-      trigger: 'Disrespect',
-      situation: 'During leisure time',
-    },
-    {
-      title: 'Unexpected Challenge',
-      timestamp: '27.11.2023 10:55',
-      intensity: 8,
-      trigger: 'Other',
-      situation: 'At work',
-    },
-    {
-      title: 'Communication Breakdown',
-      timestamp: '28.11.2023 18:50',
-      intensity: 3,
-      trigger: 'Not being understood',
-      situation: 'At work',
-    },
-    {
-      title: 'Emotional Rollercoaster',
-      timestamp: '29.11.2023 15:45',
-      intensity: 5,
-      trigger: 'Other',
-      situation: 'In social situations or at events',
-    },
-    {
-      title: 'Daily Grind Stress',
-      timestamp: '30.11.2023 20:40',
-      intensity: 2,
-      trigger: 'Stress',
-      situation: 'At work',
-    },
-    {
-      title: 'Traffic Frustration',
-      timestamp: '01.12.2023 11:35',
-      intensity: 7,
-      trigger: 'Frustration',
-      situation: 'In traffic',
-    },
-  ];
-  
-  export default data;
+    }
+]
+export default data;
+
   
