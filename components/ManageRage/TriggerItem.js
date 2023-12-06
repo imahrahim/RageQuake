@@ -1,15 +1,15 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
-
-import { Color, FontSize } from '../../constants/GlobalStyles'
 import { useState } from 'react';
 
+import { Color, FontSize } from '../../constants/GlobalStyles'
 
-export default function IntensityItem({ intensityData, onSelect }) {
+
+export default function TriggerItem({ triggers, onSelect }) {
   const [selected, setSelected] = useState(false);
 
   const handlePress = () => {
     setSelected(!selected);
-    onSelect(intensityData);
+    onSelect(triggers);
   };
 
   return (
@@ -17,35 +17,29 @@ export default function IntensityItem({ intensityData, onSelect }) {
       <View
         style={[
           styles.intensityButton,
-          { backgroundColor: selected ? Color.primary600 : Color.primary200 },
         ]}
       >
         <Text
           style={[
             styles.number,
-            { color: selected ? Color.primary200 : Color.primary600 , fontWeight: selected ? 'bold' : 'regular' },
+            { fontWeight: selected ? 'bold' : 'regular' },
           ]}
         >
-          {intensityData.intensity}
+          {triggers.trigger}
         </Text>
       </View>
     </Pressable>
   );
 }
 
-const styles = StyleSheet.create({
+  const styles = StyleSheet.create({
     intensityButton: {
-        width:50,
-        height: 50,
-        borderRadius: 30,
-        borderColor: Color.primary600,
-        borderWidth: 0.5,
-        marginHorizontal: 5,
+        marginHorizontal: 20,
         marginVertical: 10,
         alignItems: 'center',
         justifyContent: 'center'
     }, number: {
         color: Color.primary600,
-        fontSize: FontSize.sizeIntensity,
+        fontSize: FontSize.sizeOptions
     }
 })

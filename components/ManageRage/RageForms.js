@@ -6,6 +6,13 @@ import { Color } from "../../constants/GlobalStyles";
 import Date from "./Date";
 import MultiSelect from "./MultiSelect";
 
+import intensityData from "../../data/intensity";
+import IntensityItem from "./IntensityItem";
+import situations from "../../data/situation";
+import SituationItem from "./SituationItem";
+import triggers from "../../data/trigger";
+import TriggerItem from "./TriggerItem";
+
 export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
   const [inputValue, setInputValue] = useState({
     title: "",
@@ -43,11 +50,14 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
       situation: inputValue.situation,
       description: inputValue.description,
     };
-    console.log("Submitting rageData:", rageData)
+    console.log("Submitting rageData:", rageData);
     onSubmit(rageData);
   }
-  
- 
+
+  const handleSelect = (selectedSituation) => {
+    // Update intensity or perform any other logic based on the selected situation
+    console.log("Selected Situation:", selectedSituation);
+  };
 
   return (
     <View>
@@ -60,7 +70,7 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
         </Pressable>
       </View>
       <View style={styles.date}>
-      <Date onDateChange={handleDateChange}  /> 
+        <Date onDateChange={handleDateChange} />
       </View>
       <Input
         label="RAGEQUAKE"
@@ -73,7 +83,24 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
           autoCapitalize: "words",
         }}
       />
-      <MultiSelect />
+      <MultiSelect
+        label="INTENSITY RICHTER"
+        data={intensityData}
+        renderItem={({ item }) => <IntensityItem intensityData={item} onSelect={handleSelect}/>}
+      />
+      <MultiSelect
+        label="EPICENTER INSTIGATOR"
+        data={triggers}
+        renderItem={({ item }) => <TriggerItem triggers={item} onSelect={handleSelect}/>}
+      />
+      <MultiSelect
+        label="SEISMIC SCENARIO"
+        data={situations}
+        renderItem={({ item }) => (
+          <SituationItem situation={item} onSelect={handleSelect} />
+        )}
+      />
+
       <Input
         label="SHAKING RECAP"
         textInputConfig={{
@@ -98,6 +125,6 @@ const styles = StyleSheet.create({
     color: Color.primary600,
   },
   date: {
-    alignSelf: 'stretch'
-  }
+    alignSelf: "stretch",
+  },
 });

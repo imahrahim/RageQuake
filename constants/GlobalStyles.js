@@ -6,6 +6,7 @@
     sizeTitle: 20,
     sizeDescription: 12,
     sizeDate: 12,
+    sizeOptions: 15,
     
   };
   /* Colors */
