@@ -18,8 +18,8 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
     title: "",
     timestamp: "",
     intensity: null,
-    trigger: "",
-    situation: "",
+    trigger: null,
+    situation: null,
     description: "",
   });
 
@@ -45,7 +45,7 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
     const rageData = {
       title: inputValue.title,
       timestamp: inputValue.timestamp,
-      intensity: +inputValue.intensity,
+      intensity: inputValue.intensity,
       trigger: inputValue.trigger,
       situation: inputValue.situation,
       description: inputValue.description,
@@ -54,9 +54,11 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
     onSubmit(rageData);
   }
 
-  const handleSelect = (selectedSituation) => {
-    // Update intensity or perform any other logic based on the selected situation
-    console.log("Selected Situation:", selectedSituation);
+  const handleSelect = (selectedOption, type) => {
+    setInputValue((currentInputValues) => ({
+      ...currentInputValues,
+      [type]: selectedOption,
+    }));
   };
 
   const handleIntensitySelect = (selectedIntensity) => {
@@ -66,7 +68,6 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
       intensity: selectedIntensity,
     }));
   };
-
 
   return (
     <View>
@@ -93,29 +94,40 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
         }}
       />
       <MultiSelect
-      label="INTENSITY RICHTER"
-      data={intensityData}
-      renderItem={({ item }) => (
-        <IntensityItem
-          intensityData={item}
-          onSelect={handleIntensitySelect}
-          selected={inputValue.intensity === item.intensity}
-        />
-      )}
-    />
+        label="INTENSITY RICHTER"
+        data={intensityData}
+        renderItem={({ item }) => (
+          <IntensityItem
+            intensityData={item}
+            onSelect={handleIntensitySelect}
+            selected={inputValue.intensity === item.intensity}
+          />
+        )}
+      />
       <MultiSelect
         label="EPICENTER INSTIGATOR"
         data={triggers}
-        renderItem={({ item }) => <TriggerItem triggers={item} onSelect={handleSelect}/>}
+        renderItem={({ item }) => (
+          <TriggerItem
+            triggers={item}
+            onSelect={(selectedOption) => handleSelect(selectedOption, "trigger")}
+            selected={inputValue.trigger === item.trigger}
+          />
+        )}
       />
+
       <MultiSelect
         label="SEISMIC SCENARIO"
         data={situations}
         renderItem={({ item }) => (
-          <SituationItem situation={item} onSelect={handleSelect} />
+          <SituationItem
+            situation={item}
+            onSelect={(selectedOption) =>
+              handleSelect(selectedOption, "situation")}
+               selected={inputValue.situation === item.situation}
+          />
         )}
       />
-
       <Input
         label="SHAKING RECAP"
         textInputConfig={{

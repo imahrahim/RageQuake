@@ -2,27 +2,15 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Color, FontSize } from '../../constants/GlobalStyles';
 
-export default function SituationItem({ situation, onSelect }) {
-  const [selected, setSelected] = useState(false);
-
+export default function SituationItem({ situation, onSelect, selected }) {
   const handlePress = () => {
-    setSelected(!selected);
-    onSelect(situation);
+    onSelect(situation.situation); 
   };
 
   return (
     <Pressable onPress={handlePress}>
-      <View
-        style={[
-          styles.intensityButton,
-        ]}
-      >
-        <Text
-          style={[
-            styles.number,
-            { fontWeight: selected ? 'bold' : 'regular' },
-          ]}
-        >
+      <View style={[styles.intensityButton]}>
+        <Text style={[styles.number, { fontWeight: selected ? 'bold' : 'regular' }]}>
           {situation.situation}
         </Text>
       </View>

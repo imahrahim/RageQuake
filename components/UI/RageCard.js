@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Color, FontSize } from "../../constants/GlobalStyles";
 
 
-export default function RageCard({ timestamp, title,id }) {
+export default function RageCard({ timestamp, title, id, intensity, trigger, situation }) {
 const navigation = useNavigation();
 
   function ragePressHandler(){
@@ -20,7 +20,9 @@ const navigation = useNavigation();
         {/* Image Card Intensity if statement*/}
       <Text style={styles.itemDate}>{timestamp}</Text>
       <Text style={styles.itemTitle}>{title}</Text>
-      <Text style={styles.itemTitle}></Text>
+      <Text style={styles.itemTitle}>{intensity}</Text>
+      <Text style={styles.itemTitle}>{trigger}</Text>
+      <Text style={styles.itemTitle}>{situation}</Text>
     </View>
     </Pressable>
   );
