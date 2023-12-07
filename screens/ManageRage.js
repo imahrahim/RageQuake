@@ -20,6 +20,8 @@ export default function ManageRage({ navigation, route }) {
   const editedRageId = route.params?.rageId;
   const isEditing = !!editedRageId;
 
+  const selectedRage = rageCtx.rageQuakes.find(rage => rage.id === editedRageId)
+
   function deleteRageHandler() {
     rageCtx.deleteRage(editedRageId);
     navigation.goBack();
@@ -48,6 +50,7 @@ export default function ManageRage({ navigation, route }) {
             onCancel={cancelHandler}
             submitButtonLabel={isEditing ? "update" : "add"}
             onSubmit={confirmHandler}
+            defaultValues={selectedRage}
           />
         </View>
       </SafeAreaView>

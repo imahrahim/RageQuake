@@ -13,14 +13,14 @@ import SituationItem from "./SituationItem";
 import triggers from "../../data/trigger";
 import TriggerItem from "./TriggerItem";
 
-export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
+export default function RageForms({ onCancel, onSubmit, submitButtonLabel , defaultValues}) {
   const [inputValue, setInputValue] = useState({
-    title: "",
-    timestamp: "",
-    intensity: null,
-    trigger: null,
-    situation: null,
-    description: "",
+    title: defaultValues? defaultValues.title : '',
+    timestamp: defaultValues? defaultValues.timestamp : '',
+    intensity: defaultValues? defaultValues.intensity : null,
+    trigger:defaultValues? defaultValues.trigger : null,
+    situation: defaultValues? defaultValues.situation : null,
+    description: defaultValues? defaultValues.description : '',
   });
 
   function inputChangedHandler(inputIdentifier, enteredValue) {
@@ -112,6 +112,7 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
             triggers={item}
             onSelect={(selectedOption) => handleSelect(selectedOption, "trigger")}
             selected={inputValue.trigger === item.trigger}
+            defaultSelected={defaultValues ? defaultValues.trigger === item.trigger : false}
           />
         )}
       />
@@ -125,6 +126,7 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel }) {
             onSelect={(selectedOption) =>
               handleSelect(selectedOption, "situation")}
                selected={inputValue.situation === item.situation}
+               defaultSelected={defaultValues ? defaultValues.situation === item.situation : false}
           />
         )}
       />

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Color, FontSize } from '../../constants/GlobalStyles';
 
-export default function TriggerItem({ triggers, onSelect, selected }) {
+export default function TriggerItem({ triggers, onSelect, selected,defaultSelected }) {
 
 
   const handlePress = () => {
