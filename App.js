@@ -4,13 +4,14 @@ import { Text, View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
-
+const MaterialTopTabs = createMaterialTopTabNavigator();
 
 import { Color, FontSize } from "./constants/GlobalStyles";
 import Measurements from "./screens/Measurements";
@@ -18,6 +19,36 @@ import Analysis from "./screens/Analysis";
 import ManageRage from "./screens/ManageRage";
 import AddButton from "./components/UI/AddButton";
 import RageContextProvider from "./store/rage-context";
+import Seismograph from "./components/DataViz/Seismograph";
+import TriggerChart from "./components/DataViz/TriggerChart";
+import SituationChart from "./components/DataViz/SituationChart";
+
+function AnalysisTabs() {
+  return (
+    <MaterialTopTabs.Navigator
+    screenOptions={{
+      tabBarShowLabel: true,
+      tabBarStyle: {
+        backgroundColor: Color.primary600,
+      },
+      tabBarIndicatorStyle: {
+        backgroundColor: Color.primary200_30,
+      },
+      tabBarLabelStyle: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: Color.primary200,
+      },
+      tabBarPressColor: Color.primary200_20,
+      tabBarScrollEnabled: false, // Set to true if you want scrolling tabs
+    }}
+    >
+      <MaterialTopTabs.Screen name="Seismograph" component={Seismograph}/>
+      <MaterialTopTabs.Screen name="Trigger" component={TriggerChart} />
+      <MaterialTopTabs.Screen name="Situation" component={SituationChart} />
+    </MaterialTopTabs.Navigator>
+  );
+}
 
 function RageQuake( {navigation}) {
   const [fontsLoaded] = useFonts({
@@ -71,9 +102,13 @@ function RageQuake( {navigation}) {
       />
       <BottomTabs.Screen
         name="Analysis"
-        component={Analysis}
+        component={AnalysisTabs}
         options={{
-          headerShown: false,
+          headerShown:true,
+          headerStyle: {
+            backgroundColor: Color.primary600,
+          },
+          headerTitle: '',
           tabBarIcon: ({ focused }) => (
             <View
               style={{

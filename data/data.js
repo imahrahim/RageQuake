@@ -161,10 +161,10 @@ const data = [
     },
     {
       id: 'r21',
-      title: 'Frantic Driver',
+      title: 'Pussy Parker',
       timestamp: '08.12.2023 12:45',
       intensity: 10,
-      trigger: 'Frustration',
+      trigger: 'Stress',
       situation: 'In traffic',
     }
 ]

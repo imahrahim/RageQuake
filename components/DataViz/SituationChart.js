@@ -28,7 +28,7 @@ const SituationChart = () => {
   const centerX = windowDimensions.width / 2;
   const centerY = windowDimensions.height / 4
   return (
-    <View style={{ flex: 1 }}>
+    <View style={ {flex: 1, backgroundColor:Color.primary600} }>
       <Svg width="100%" height="100%">
         {situationData.map((item, index) => (
           <Fragment key={index}>
@@ -37,7 +37,7 @@ const SituationChart = () => {
               y={centerY + 15 + index * 15}
               width="100%"
               height="15"
-              fill={Color.primary200}
+              fill={Color.primary600}
             />
             <Circle
               cx={centerX}
@@ -51,7 +51,7 @@ const SituationChart = () => {
               y={centerY + 15 + index * 15}
               x={centerX}
               fontSize="12"
-              fill={Color.primary600}
+              fill={Color.primary200}
               textAnchor="left"
             >
               {item.situation}

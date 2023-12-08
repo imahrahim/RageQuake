@@ -29,7 +29,7 @@ const TriggerChart = () => {
   const centerY = windowDimensions.height / 4
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor:Color.primary600 }}>
       <Svg width="100%" height="100%">
         {triggerData.map((item, index) => (
           <Fragment key={index}>
@@ -38,7 +38,7 @@ const TriggerChart = () => {
               y={centerY + 15 + index * 15}
               width="100%"
               height="15"
-              fill={Color.primary200}
+              fill={Color.primary600}
             />
             <Circle
               cx={centerX}
@@ -52,7 +52,7 @@ const TriggerChart = () => {
               y={centerY + 15 + index * 15}
               x={centerX}
               fontSize="12"
-              fill={Color.primary600}
+              fill={Color.primary200}
               textAnchor="left"
             >
               {item.trigger}

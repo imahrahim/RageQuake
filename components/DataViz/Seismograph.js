@@ -33,6 +33,8 @@ const Seismograph = () => {
   // Create a path string for the continuous timeline
   let pathString = "";
 
+  const coordinates = [];
+
   // Iterate through each day within the date range
   for (
     let date = startDate.clone();
@@ -43,38 +45,45 @@ const Seismograph = () => {
       timestamp.isSame(date, "day")
     );
 
-    // Calculate X and Y positions
-    const x1 =
-    dataIndex !== -1 ? xOffset : xOffset;
-  const y1 =
-    (date.diff(startDate, "days") + (yStep )) *
-    (chartHeight / endDate.diff(startDate, "days"));
-  const x2 =
-    dataIndex !== -1 ? xOffset + intensities[dataIndex] * scaleX : xOffset;
-  const y2 =
-    (date.diff(startDate, "days") + (yStep *2)) *
-    (chartHeight / endDate.diff(startDate, "days"));
-  const x3 =
-    dataIndex !== -1 ? xOffset - intensities[dataIndex] * scaleX : xOffset;
-  const y3 =
-    (date.diff(startDate, "days") + (yStep *3)) *
-    (chartHeight / endDate.diff(startDate, "days"));
-  const x4 =
-    dataIndex !== -1 ? xOffset : xOffset;
-  const y4 =
-    (date.diff(startDate, "days") + (yStep *4)) *
-    (chartHeight / endDate.diff(startDate, "days"));
+   
 
-  if (pathString === "") {
-    pathString += `M${x1},${y1}`;
-  } else {
-    pathString += ` L${x2},${y2} L${x3},${y3} L${x4},${y4}`;
+    // Calculate X and Y positions
+    const x1 = dataIndex !== -1 ? xOffset : xOffset;
+    const y1 =
+      (date.diff(endDate, "days") - yStep * 4) *
+      (chartHeight / startDate.diff(endDate, "days"));
+    const x2 =
+      dataIndex !== -1 ? xOffset + intensities[dataIndex] * scaleX : xOffset;
+    const y2 =
+      (date.diff(endDate, "days") - yStep * 3) *
+      (chartHeight / startDate.diff(endDate, "days"));
+    const x3 =
+      dataIndex !== -1 ? xOffset - intensities[dataIndex] * scaleX : xOffset;
+    const y3 =
+      (date.diff(endDate, "days") - yStep * 2) *
+      (chartHeight / startDate.diff(endDate, "days"));
+    const x4 = dataIndex !== -1 ? xOffset : xOffset;
+    const y4 =
+      (date.diff(endDate, "days") - yStep * 1) *
+      (chartHeight / startDate.diff(endDate, "days"));
+
+    if (pathString === "") {
+      pathString += `M${x1},${y1}`;
+    } else {
+      pathString += ` L${x2},${y2} L${x3},${y3} L${x4},${y4}`;
+    }
+
+    
+ coordinates.push({ x1, y1 });
   }
-}
+
+
+
+
 
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor:Color.primary600 }}>
       <Svg width="100%" height="100%">
         <Path
           d={pathString}
@@ -82,6 +91,17 @@ const Seismograph = () => {
           stroke={Color.primary200}
           fill="none"
         />
+            {coordinates.map((coord, index) => (
+          <Text
+            key={index}
+            x={coord.x1 + 5} 
+            y={coord.y1 + 15} 
+            fontSize="10"
+            fill="red"
+          >
+            Day {index + 1}
+          </Text>
+        ))}
       </Svg>
     </View>
   );
