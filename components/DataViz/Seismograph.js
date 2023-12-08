@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
 import { View, useWindowDimensions } from "react-native";
-import Svg, { Line, Circle, Text, Path } from "react-native-svg";
-import moment from "moment"; // Import the moment library to handle timestamps
-
+import Svg, { Text, Path } from "react-native-svg";
+import moment from "moment";
 import data from "../../data/data";
 import { Color } from "../../constants/GlobalStyles";
 
@@ -25,80 +24,67 @@ const Seismograph = () => {
   );
   const intensities = sortedData.map((item) => item.intensity);
 
-  const days = Array.from(
-    new Set(timestamps.map((timestamp) => timestamp.format("DD.MM.YYYY")))
-  );
+  const startDate = moment("01.11.2023", "DD.MM.YYYY");
+  const endDate = moment();
 
-  const yStep = 1 / 3;
-  console.log("yStep", yStep);
-
+  const yStep = 1 / 4;
   const scaleX = chartWidth / 10;
 
-  console.log(scaleX);
+  // Create a path string for the continuous timeline
+  let pathString = "";
+
+  // Iterate through each day within the date range
+  for (
+    let date = startDate.clone();
+    date.isSameOrBefore(endDate);
+    date.add(1, "day")
+  ) {
+    const dataIndex = timestamps.findIndex((timestamp) =>
+      timestamp.isSame(date, "day")
+    );
+
+    // Calculate X and Y positions
+    const x1 =
+    dataIndex !== -1 ? xOffset : xOffset;
+  const y1 =
+    (date.diff(startDate, "days") + (yStep )) *
+    (chartHeight / endDate.diff(startDate, "days"));
+  const x2 =
+    dataIndex !== -1 ? xOffset + intensities[dataIndex] * scaleX : xOffset;
+  const y2 =
+    (date.diff(startDate, "days") + (yStep *2)) *
+    (chartHeight / endDate.diff(startDate, "days"));
+  const x3 =
+    dataIndex !== -1 ? xOffset - intensities[dataIndex] * scaleX : xOffset;
+  const y3 =
+    (date.diff(startDate, "days") + (yStep *3)) *
+    (chartHeight / endDate.diff(startDate, "days"));
+  const x4 =
+    dataIndex !== -1 ? xOffset : xOffset;
+  const y4 =
+    (date.diff(startDate, "days") + (yStep *4)) *
+    (chartHeight / endDate.diff(startDate, "days"));
+
+  if (pathString === "") {
+    pathString += `M${x1},${y1}`;
+  } else {
+    pathString += ` L${x2},${y2} L${x3},${y3} L${x4},${y4}`;
+  }
+}
+
 
   return (
     <View style={{ flex: 1 }}>
       <Svg width="100%" height="100%">
-        {timestamps.map((timestamp, index) => (
-          <Fragment key={index}>
-            <Path
-              d={`M${xOffset},${index * (chartHeight / timestamps.length)} L${
-                xOffset + intensities[index] * scaleX
-              },${(index + yStep) * (chartHeight / timestamps.length)} L${
-                xOffset - intensities[index] * scaleX
-              },${
-                (index + yStep * 2) * (chartHeight / timestamps.length)
-              } L${xOffset},${
-                (index + yStep * 3) * (chartHeight / timestamps.length)
-              }`}
-              strokeWidth={2}
-              stroke={Color.primary200}
-              fill="none"
-            />
-            <Text
-              x={5}
-              y={index * (chartHeight / timestamps.length) + 15}
-              fontSize="10"
-              fill="#000000"
-            >
-              {timestamp.format("DD.MM.YYYY HH:mm")}
-            </Text>
-          </Fragment>
-        ))}
+        <Path
+          d={pathString}
+          strokeWidth={2}
+          stroke={Color.primary200}
+          fill="none"
+        />
       </Svg>
     </View>
   );
 };
 
 export default Seismograph;
-
-// {index > 0 && (
-//   <Line
-//     x1={xOffset}
-//     y1={index * (chartHeight / timestamps.length)}
-//     x2={xOffset + intensities[index] * scaleX}
-//     y2={(index + yStep) * (chartHeight / timestamps.length)}
-//     strokeWidth={2}
-//     stroke={Color.primary200}
-//   />
-// )}
-//    {index > 0 && (
-//   <Line
-//     x1={xOffset + intensities[index] * scaleX}
-//     y1={(index + yStep) * (chartHeight / timestamps.length)}
-//     x2={xOffset - intensities[index] * scaleX}
-//     y2={(index+ (yStep*2)) * (chartHeight / timestamps.length)}
-//     strokeWidth={2}
-//     stroke={Color.primary200}
-//   />
-// )}
-//    {index > 0 && (
-//   <Line
-//     x1={xOffset - intensities[index] * scaleX}
-//     y1={(index + (yStep*2)) * (chartHeight / timestamps.length)}
-//     x2={xOffset}
-//     y2={(index + (yStep*3))  * (chartHeight / timestamps.length)}
-//     strokeWidth={2}
-//     stroke={Color.primary200}
-//   />
-// )}

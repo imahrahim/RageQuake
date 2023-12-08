@@ -160,10 +160,10 @@ const data = [
       situation: 'In traffic',
     },
     {
-      id: 'r20',
+      id: 'r21',
       title: 'Frantic Driver',
       timestamp: '08.12.2023 12:45',
-      intensity: 8,
+      intensity: 10,
       trigger: 'Frustration',
       situation: 'In traffic',
     }
