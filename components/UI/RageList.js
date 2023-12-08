@@ -1,7 +1,7 @@
 import { View, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import RageCard from './RageCard';
 
-import { Color, FontSize } from '../../constants/GlobalStyles';
+import { Color, FontSize, FontFamily } from '../../constants/GlobalStyles';
 
 export default function RageList({ rageQuakes, fallbackText }) {
   if (rageQuakes.length === 0) {
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   infoText: {
     color: Color.primary200,
     fontSize: FontSize.sizeDescription,
+    fontFamily: FontFamily.regular,
     textAlign: 'center',
     margin: 32,
   },

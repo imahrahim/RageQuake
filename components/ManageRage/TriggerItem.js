@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { Color, FontSize } from '../../constants/GlobalStyles';
+import { Color, FontSize , FontFamily} from '../../constants/GlobalStyles';
 
 export default function TriggerItem({ triggers, onSelect, selected,defaultSelected }) {
 
@@ -12,7 +12,7 @@ export default function TriggerItem({ triggers, onSelect, selected,defaultSelect
   return (
     <Pressable onPress={handlePress}>
       <View style={[styles.intensityButton]}>
-        <Text style={[styles.number, { fontWeight: selected ? 'bold' : 'regular' }]}>
+        <Text style={[styles.number, { fontFamily: selected ? FontFamily.black: FontFamily.regular }]}>
           {triggers.trigger}
         </Text>
       </View>
@@ -31,5 +31,6 @@ const styles = StyleSheet.create({
   },
   number: {
     fontSize: FontSize.sizeOptions,
+    fontFamily: FontFamily.regular
   },
 });

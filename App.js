@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import * as React from "react";
+import React, { useEffect } from 'react';
 import { Text, View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useFonts } from "expo-font";
+import { useFonts, Kanit_400Regular, Kanit_400Regular_Italic, Kanit_900Black, Kanit_900Black_Italic } from '@expo-google-fonts/kanit';
 import AppLoading from "expo-app-loading";
 
 
@@ -13,9 +13,8 @@ const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 const MaterialTopTabs = createMaterialTopTabNavigator();
 
-import { Color, FontSize } from "./constants/GlobalStyles";
+import { Color, FontSize, FontFamily } from "./constants/GlobalStyles";
 import Measurements from "./screens/Measurements";
-import Analysis from "./screens/Analysis";
 import ManageRage from "./screens/ManageRage";
 import AddButton from "./components/UI/AddButton";
 import RageContextProvider from "./store/rage-context";
@@ -26,7 +25,12 @@ import SituationChart from "./components/DataViz/SituationChart";
 function AnalysisTabs() {
   return (
     <MaterialTopTabs.Navigator
-    screenOptions={{
+    screenOptions={({ route }) => ({
+      tabBarLabel: ({ focused }) => {
+        const labelStyle = focused ? FontFamily.blackItalic : FontFamily.italic;
+        const labelSize = focused ? 11 : 12;
+        return <Text style={{fontFamily: labelStyle, fontSize: labelSize, color: Color.primary200}}>{route.name}</Text>;
+      },
       tabBarShowLabel: true,
       tabBarStyle: {
         backgroundColor: Color.primary600,
@@ -34,14 +38,9 @@ function AnalysisTabs() {
       tabBarIndicatorStyle: {
         backgroundColor: Color.primary200_30,
       },
-      tabBarLabelStyle: {
-        fontSize: 12,
-        fontWeight: 'bold',
-        color: Color.primary200,
-      },
       tabBarPressColor: Color.primary200_20,
-      tabBarScrollEnabled: false, // Set to true if you want scrolling tabs
-    }}
+      tabBarScrollEnabled: false,
+    })}
     >
       <MaterialTopTabs.Screen name="Seismograph" component={Seismograph}/>
       <MaterialTopTabs.Screen name="Trigger" component={TriggerChart} />
@@ -50,20 +49,18 @@ function AnalysisTabs() {
   );
 }
 
-function RageQuake( {navigation}) {
+
+function RageQuake({ navigation }) {
   const [fontsLoaded] = useFonts({
-    "SuisseScreen-bold": require("./assets/fonts/SuisseScreen-Bold.ttf"),
-    "SuisseScreen-boldItalic": require("./assets/fonts/SuisseScreen-BoldItalic.ttf"),
-    "SuisseScreen-monitor": require("./assets/fonts/SuisseScreen-Monitor.ttf"),
-    "SuisseScreen- monitorItalic": require("./assets/fonts/SuisseScreen-MonitorItalic.ttf"),
+    Kanit_400Regular,
+    Kanit_400Regular_Italic,
+    Kanit_900Black,
+    Kanit_900Black_Italic
   });
 
   if (!fontsLoaded) {
-    console.log("Fonts not loaded");
-    return <AppLoading />;
+    return null;
   }
-
-  console.log("Fonts loaded:", fontsLoaded);
 
   return (
     <>
@@ -95,7 +92,10 @@ function RageQuake( {navigation}) {
                 top: Platform.OS === 'ios' ? 20 : 0, // Add top: 20 for iOS
               }}
             >
-              <Text style={{ ...styles.navigationText }}>MEASUREMENTS</Text>
+              <Text style={{
+            ...styles.navigationText,
+            fontFamily: focused ? FontFamily.blackItalic : FontFamily.italic,
+          }}>MEASUREMENTS</Text>
             </View>
           ),
         }}
@@ -117,7 +117,10 @@ function RageQuake( {navigation}) {
                 top: Platform.OS === 'ios' ? 20 : 0,
               }}
             >
-              <Text style={{ ...styles.navigationText }}>ANALYSIS</Text>
+              <Text style={{
+            ...styles.navigationText,
+            fontFamily: focused ? FontFamily.blackItalic : FontFamily.italic,
+          }}>ANALYSIS</Text>
             </View>
           ),
         }}
@@ -167,9 +170,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   navigationText: {
-    fontStyle: 'italic',
     fontSize: FontSize.sizeMenu,
-    color: Color.primary200
+    color: Color.primary200,
+    fontFamily: FontFamily.italic
   },
   container: {
     flex: 1,

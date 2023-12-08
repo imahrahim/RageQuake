@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Color, FontSize } from "../constants/GlobalStyles";
+import { Color, FontSize, FontFamily } from "../constants/GlobalStyles";
 import { useContext } from "react";
 import { RageContext } from "../store/rage-context";
 
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   text: {
     color: Color.primary600,
     fontSize: FontSize.sizeTitle,
-    fontWeight: "bold",
+    fontFamily: FontFamily.black
   },
   manageContainer: {
     flex: 1,
@@ -86,12 +86,18 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingTop: 8,
     width: 150,
+    marginBottom: 80,
     borderTopColor: Color.primary600,
     borderTopWidth: 1,
   },
   textInput: {
     borderColor: Color.secondary600,
+    fontFamily: FontFamily.black,
     borderWidth: 3,
     height: 80,
+  },
+  buttonText: {
+    color: Color.primary600,
+    fontFamily: FontFamily.regular
   },
 });

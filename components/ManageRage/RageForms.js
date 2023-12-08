@@ -2,7 +2,7 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useState, useEffect } from "react";
 import Input from "./Input";
-import { Color } from "../../constants/GlobalStyles";
+import { Color , FontFamily} from "../../constants/GlobalStyles";
 import Date from "./Date";
 import MultiSelect from "./MultiSelect";
 
@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: Color.primary600,
+    fontFamily: FontFamily.regular
   },
   date: {
     alignSelf: "stretch",

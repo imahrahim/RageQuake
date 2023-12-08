@@ -1,5 +1,16 @@
+import { useFonts, Kanit_400Regular, Kanit_400Regular_Italic, Kanit_900Black, Kanit_900Black_Italic } from '@expo-google-fonts/kanit';
+  /* fontFamily */
+  export const FontFamily = {
+    regular: 'Kanit_400Regular',
+    italic: 'Kanit_400Regular_Italic',
+    black: 'Kanit_900Black',
+    blackItalic: 'Kanit_900Black_Italic',
+    
+  };
 
-  /* font sizes */
+
+
+/* font sizes */
   export const FontSize = {
     sizeMenu: 15,
     sizeIntensity: 40,

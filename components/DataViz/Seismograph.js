@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
-import { View, useWindowDimensions } from "react-native";
+import { View, useWindowDimensions, StyleSheet, ScrollView } from "react-native";
 import Svg, { Text, Path } from "react-native-svg";
 import moment from "moment";
 import data from "../../data/data";
-import { Color } from "../../constants/GlobalStyles";
+import { Color, FontFamily } from "../../constants/GlobalStyles";
 
 const Seismograph = () => {
   const sortedData = data.sort(
@@ -83,7 +83,8 @@ const Seismograph = () => {
 
 
   return (
-    <View style={{ flex: 1, backgroundColor:Color.primary600 }}>
+    <View style={styles.container}>
+      <View style={styles.scrollContainer}>
       <Svg width="100%" height="100%">
         <Path
           d={pathString}
@@ -98,13 +99,25 @@ const Seismograph = () => {
             y={coord.y1 + 15} 
             fontSize="10"
             fill="red"
+            fontFamily={FontFamily.italic}
           >
             Day {index + 1}
           </Text>
         ))}
       </Svg>
+      </View>
     </View>
   );
 };
+
+const styles= StyleSheet.create({
+  container:{
+    flex: 1, 
+    backgroundColor:Color.primary600 
+  },
+  scrollContainer: {
+    marginTop: 50,
+  },
+})
 
 export default Seismograph;

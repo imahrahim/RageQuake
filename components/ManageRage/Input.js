@@ -1,7 +1,7 @@
 import { View, TextInput, Text, StyleSheet } from "react-native";
 import React from "react";
 
-import { Color, FontSize, Margin, Padding } from "../../constants/GlobalStyles";
+import { Color, FontSize, Margin, Padding , FontFamily} from "../../constants/GlobalStyles";
 
 export default function Input({ label, textInputConfig }) {
 
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   title: {
     color: Color.primary600,
     fontSize: FontSize.sizeTitle,
-    fontWeight: "bold",
+    fontFamily: FontFamily.black
   },
   textInput: {
     borderColor: Color.primary600,
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     marginVertical: Margin.marginContentVerticla,
     color: Color.primary600,
     fontSize: FontSize.sizeDescription,
+    fontFamily: FontFamily.regular
   },
   inputMultiline: {
     minHeight: 100,

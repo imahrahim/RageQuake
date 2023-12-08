@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 
-import { Color, FontSize, Margin } from '../../constants/GlobalStyles';
+import { Color, FontSize, Margin, FontFamily } from '../../constants/GlobalStyles';
 
 const MultipleSelection = ({ label, data, renderItem }) => {
   return (
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   title: {
     color: Color.primary600,
     fontSize: FontSize.sizeTitle,
-    fontWeight: 'bold',
+    fontFamily: FontFamily.black,
     marginBottom: Margin.marginContentVerticla,
   },
 });

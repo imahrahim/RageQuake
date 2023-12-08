@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { Color, FontSize } from '../../constants/GlobalStyles';
+import { Color, FontSize, FontFamily } from '../../constants/GlobalStyles';
 
 export default function SituationItem({ situation, onSelect, selected }) {
   const handlePress = () => {
@@ -10,7 +10,7 @@ export default function SituationItem({ situation, onSelect, selected }) {
   return (
     <Pressable onPress={handlePress}>
       <View style={[styles.intensityButton]}>
-        <Text style={[styles.number, { fontWeight: selected ? 'bold' : 'regular' }]}>
+        <Text style={[styles.number, { fontFamily: selected ? FontFamily.black: FontFamily.regular }]}>
           {situation.situation}
         </Text>
       </View>
@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
   },
   number: {
     fontSize: FontSize.sizeOptions,
+    fontFamily: FontFamily.regular
   },
 });

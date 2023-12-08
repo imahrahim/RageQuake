@@ -1,7 +1,7 @@
 import { View, Pressable, Text, StyleSheet} from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import { Color } from '../../constants/GlobalStyles';
+import { Color, FontFamily } from '../../constants/GlobalStyles';
 
 const AddButton = ({ onPress }) => {
     return (
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
       text: {
         color: Color.primary600,
         fontSize: 40,
+        fontFamily: FontFamily.regular
       }
   });
 

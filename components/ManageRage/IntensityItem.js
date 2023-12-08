@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 
-import { Color, FontSize } from '../../constants/GlobalStyles'
+import { Color, FontSize, FontFamily } from '../../constants/GlobalStyles'
 import { useState } from 'react';
 
 
@@ -22,7 +22,7 @@ export default function IntensityItem({ intensityData, onSelect, selected  }) {
         <Text
           style={[
             styles.number,
-            { color: selected ? Color.primary200 : Color.primary600 , fontWeight: selected ? 'bold' : 'regular' },
+            { color: selected ? Color.primary200 : Color.primary600 ,   fontFamily: selected ? FontFamily.black: FontFamily.regular  },
           ]}
         >
           {intensityData.intensity}

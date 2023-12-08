@@ -5,7 +5,7 @@ import Svg, { Circle, Text, Rect } from "react-native-svg";
 import data from "../../data/data";
 import situations from "../../data/situation";
 
-import { Color } from "../../constants/GlobalStyles";
+import { Color, FontFamily } from "../../constants/GlobalStyles";
 
 const SituationChart = () => {
   const situationCounts = situations.reduce((counts, situationOption) => {
@@ -53,6 +53,7 @@ const SituationChart = () => {
               fontSize="12"
               fill={Color.primary200}
               textAnchor="left"
+              fontFamily={FontFamily.italic}
             >
               {item.situation}
             </Text>

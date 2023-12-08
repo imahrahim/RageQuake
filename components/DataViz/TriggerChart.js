@@ -5,7 +5,7 @@ import Svg, { Circle, Text, Rect } from "react-native-svg";
 import data from "../../data/data";
 import triggers from "../../data/trigger";
 
-import { Color } from "../../constants/GlobalStyles";
+import { Color, FontFamily } from "../../constants/GlobalStyles";
 
 const TriggerChart = () => {
   const triggerCounts = triggers.reduce((counts, triggerOption) => {
@@ -54,6 +54,7 @@ const TriggerChart = () => {
               fontSize="12"
               fill={Color.primary200}
               textAnchor="left"
+              fontFamily={FontFamily.italic}
             >
               {item.trigger}
             </Text>
