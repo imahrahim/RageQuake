@@ -29,7 +29,7 @@ const TriggerChart = () => {
 
   triggerData.sort((a, b) => b.count - a.count);
 
-  console.log("trigger Data:", triggerData);
+
 
   const windowDimensions = useWindowDimensions();
   const centerX = (windowDimensions.width / 2) -20

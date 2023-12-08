@@ -6,7 +6,9 @@ import { Color, FontFamily } from "../../constants/GlobalStyles";
 import { RageContext } from "../../store/rage-context"; // Import your context
 
 const Seismograph = () => {
-  const rageCtx = useContext(RageContext); // Access the context
+  const rageCtx = useContext(RageContext); 
+
+// console.log(new Date(rageCtx.rageQuakes.timestamp))
 
   const sortedData = rageCtx.rageQuakes.sort(
     (a, b) =>
@@ -14,7 +16,7 @@ const Seismograph = () => {
       moment(b.timestamp, "DD.MM.YYYY HH:mm")
   );
 
-  const dayStep = 50;
+  const dayStep = 200;
   const windowDimensions = useWindowDimensions();
   const chartWidth = windowDimensions.width / 3;
   const chartHeight = sortedData.length * dayStep;
@@ -23,22 +25,23 @@ const Seismograph = () => {
 
   // Extract timestamps and intensities
   const timestamps = sortedData.map((item) =>
-    moment(item.timestamp, "DD.MM.YYYY HH:mm")
-  );
-  const intensities = sortedData.map((item) => item.intensity);
+  moment(item.timestamp, "DD.MM.YYYY")
+);
+const intensities = sortedData.map((item) => item.intensity);
 
-  const startDate = moment("01.11.2023", "DD.MM.YYYY");
+
+  const startDate = moment("05.11.2023", "DD.MM.YYYY");
   const endDate = moment();
 
   const yStep = 1 / 4;
   const scaleX = chartWidth / 10;
 
-  // Create a path string for the continuous timeline
+
   let pathString = "";
 
   const coordinates = [];
+  
 
-  // Iterate through each day within the date range
   for (
     let date = startDate.clone();
     date.isSameOrBefore(endDate);
@@ -47,6 +50,7 @@ const Seismograph = () => {
     const dataIndex = timestamps.findIndex((timestamp) =>
       timestamp.isSame(date, "day")
     );
+  
 
     // Calculate X and Y positions
     const x1 = dataIndex !== -1 ? xOffset : xOffset;

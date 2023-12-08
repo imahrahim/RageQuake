@@ -31,7 +31,7 @@ const SituationChart = () => {
 
   situationData.sort((a, b) => b.count - a.count);
 
-  console.log("situationData:", situationData);
+  
 
   const windowDimensions = useWindowDimensions();
   const centerX = (windowDimensions.width / 2) - 20
@@ -41,7 +41,7 @@ const SituationChart = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: Color.primary600,
+        backgroundColor: Color.primary200,
         borderRadius: 50,
         margin: 20,
       }}
@@ -59,7 +59,7 @@ const SituationChart = () => {
                 r={index * 15}
                 fill="none"
                 strokeWidth={strokeWidth}
-                stroke={Color.primary200_80}
+                stroke={Color.primary600}
               />
             </Fragment>
           );
@@ -69,7 +69,7 @@ const SituationChart = () => {
           y={centerY}
           width="35%"
           height="150"
-          fill={Color.primary600_50}
+          fill={Color.primary200_80}
         />
         {situationData.map((item, index) => {
           const percentage = (item.count / totalDataCount) * 100;
@@ -77,10 +77,10 @@ const SituationChart = () => {
           return (
             <Fragment key={index}>
               <Text
-                y={centerY + 20 + index * 15}
+                y={centerY + 18 + index * 15}
                 x={centerX + 5}
                 fontSize="12"
-                fill={Color.primary200}
+                fill={Color.primary600}
                 textAnchor="left"
                 fontStyle="italic"
               >
