@@ -158,6 +158,14 @@ const data = [
       intensity: 8,
       trigger: 'Frustration',
       situation: 'In traffic',
+    },
+    {
+      id: 'r20',
+      title: 'Frantic Driver',
+      timestamp: '08.12.2023 12:45',
+      intensity: 8,
+      trigger: 'Frustration',
+      situation: 'In traffic',
     }
 ]
 export default data;
