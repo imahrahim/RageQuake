@@ -1,14 +1,31 @@
-import { useContext } from "react";
-import RageList from '../components/UI/RageList'
+import { useContext, useEffect, useState } from "react";
+import RageList from "../components/UI/RageList";
 import { RageContext } from "../store/rage-context";
+import { fetchRage } from "../util/http";
 import { Text, StyleSheet } from "react-native";
-import { Color, FontSize } from "../constants/GlobalStyles";
 
 function Measurements() {
-  const rageCtx = useContext(RageContext);
+  const rageContext = useContext(RageContext);
+
+  useEffect(() => {
+    async function getRages() {
+      try {
+        const rages = await fetchRage();
+        rageContext.setRages(rages);
+      } catch (error) {
+        console.error("Error fetching rages:", error);
+      }
+    }
+
+    getRages();
+  }, [rageContext]);
+
 
   return (
-    <RageList rageQuakes={rageCtx.rageQuakes} fallbackText="No RageQuakes found!" />
+    <RageList
+      rageQuakes={rageContext.rageQuakes}
+      fallbackText="No RageQuakes found!"
+    />
   );
 }
 

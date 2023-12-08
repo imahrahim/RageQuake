@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import { Color , FontFamily} from "../../constants/GlobalStyles";
-import Date from "./Date";
+import DatePicker from './Date'
 import MultiSelect from "./MultiSelect";
 
 import intensityData from "../../data/intensity";
@@ -80,7 +80,7 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel , defa
         </Pressable>
       </View>
       <View style={styles.date}>
-        <Date onDateChange={handleDateChange} />
+        <DatePicker onDateChange={handleDateChange} />
       </View>
       <Input
         label="RAGEQUAKE"

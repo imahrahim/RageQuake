@@ -1,4 +1,4 @@
-import { View, StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { View, StyleSheet, SafeAreaView, FlatList, Text } from 'react-native';
 import RageCard from './RageCard';
 
 import { Color, FontSize, FontFamily } from '../../constants/GlobalStyles';

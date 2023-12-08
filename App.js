@@ -15,12 +15,12 @@ const MaterialTopTabs = createMaterialTopTabNavigator();
 
 import { Color, FontSize, FontFamily } from "./constants/GlobalStyles";
 import Measurements from "./screens/Measurements";
+import Analysis from "./screens/Analysis";
 import ManageRage from "./screens/ManageRage";
 import AddButton from "./components/UI/AddButton";
 import RageContextProvider from "./store/rage-context";
 import Seismograph from "./components/DataViz/Seismograph";
-import TriggerChart from "./components/DataViz/TriggerChart";
-import SituationChart from "./components/DataViz/SituationChart";
+
 
 function AnalysisTabs() {
   return (
@@ -28,7 +28,7 @@ function AnalysisTabs() {
     screenOptions={({ route }) => ({
       tabBarLabel: ({ focused }) => {
         const labelStyle = focused ? FontFamily.blackItalic : FontFamily.italic;
-        const labelSize = focused ? 11 : 12;
+        const labelSize = focused ? 14 : 15;
         return <Text style={{fontFamily: labelStyle, fontSize: labelSize, color: Color.primary200}}>{route.name}</Text>;
       },
       tabBarShowLabel: true,
@@ -43,8 +43,9 @@ function AnalysisTabs() {
     })}
     >
       <MaterialTopTabs.Screen name="Seismograph" component={Seismograph}/>
-      <MaterialTopTabs.Screen name="Trigger" component={TriggerChart} />
-      <MaterialTopTabs.Screen name="Situation" component={SituationChart} />
+      <MaterialTopTabs.Screen name="Epicentrum" component={Analysis}/>
+      {/* <MaterialTopTabs.Screen name="Trigger" component={TriggerChart} />
+      <MaterialTopTabs.Screen name="Situation" component={SituationChart} /> */}
     </MaterialTopTabs.Navigator>
   );
 }

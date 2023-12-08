@@ -1,11 +1,10 @@
 import { createContext, useReducer } from "react";
-import data from "../data/data";
 
-const dummyData = data;
 
 export const RageContext = createContext({
   rageQuakes: [],
   addRage: ({ title, timestamp, intensity, trigger, situation }) => {},
+  setRage: (rages) => {},
   deleteRage: (id) => {},
   updateRage: (id, { title, timestamp, intensity, trigger, situation }) => {},
 });
@@ -15,6 +14,8 @@ function rageReducer(state, action) {
     case "ADD":
       const id = new Date().toString() + Math.random().toString();
       return [{ ...action.payload, id }, ...state];
+      case 'SET':
+        return action.payload;
     case "UPDATE":
       const updateableRageIndex = state.findIndex(
         (item) => item.id === action.payload.id
@@ -30,12 +31,15 @@ function rageReducer(state, action) {
       return state;
   }
 }
-
 function RageContextProvider({ children }) {
-  const [rageState, dispatch] = useReducer(rageReducer, dummyData);
+  const [rageState, dispatch] = useReducer(rageReducer, []);
 
   function addRage(rageData) {
     dispatch({ type: "ADD", payload: rageData });
+  }
+
+  function setRages(rages) {
+    dispatch({ type: "SET", payload: rages });
   }
 
   function deleteRage(id) {
@@ -46,17 +50,16 @@ function RageContextProvider({ children }) {
     dispatch({ type: "UPDATE", payload: { id: id, data: rageData } });
   }
 
-const value = {
+  const value = {
     rageQuakes: rageState,
+    setRages: setRages, // Fix: Use setRages instead of setRage
     addRage: addRage,
     deleteRage: deleteRage,
-    updateRage:updateRage,
-}
+    updateRage: updateRage, // Optionally, you can use shorthand syntax: updateRage
+  };
 
   return (
-    <RageContext.Provider
-      value={value}
-    >
+    <RageContext.Provider value={value}>
       {children}
     </RageContext.Provider>
   );

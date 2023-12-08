@@ -1,17 +1,14 @@
-import React, { Fragment } from "react";
-import {
-  View,
-  useWindowDimensions,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import React, { Fragment, useContext } from "react";
+import { View, useWindowDimensions, StyleSheet, ScrollView } from "react-native";
 import Svg, { Text, Path, Line } from "react-native-svg";
 import moment from "moment";
-import data from "../../data/data";
 import { Color, FontFamily } from "../../constants/GlobalStyles";
+import { RageContext } from "../../store/rage-context"; // Import your context
 
 const Seismograph = () => {
-  const sortedData = data.sort(
+  const rageCtx = useContext(RageContext); // Access the context
+
+  const sortedData = rageCtx.rageQuakes.sort(
     (a, b) =>
       moment(a.timestamp, "DD.MM.YYYY HH:mm") -
       moment(b.timestamp, "DD.MM.YYYY HH:mm")
@@ -157,7 +154,6 @@ const styles = StyleSheet.create({
     marginTop: 100,
     paddingBottom: 100,
     paddingTop:20,
-    overflow: 'visible'
   },
 });
 

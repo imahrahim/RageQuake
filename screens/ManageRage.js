@@ -13,6 +13,7 @@ import { useContext } from "react";
 import { RageContext } from "../store/rage-context";
 
 import RageForms from "../components/ManageRage/RageForms";
+import { storeRage } from "../util/http";
 
 export default function ManageRage({ navigation, route }) {
   const rageCtx = useContext(RageContext);
@@ -20,7 +21,9 @@ export default function ManageRage({ navigation, route }) {
   const editedRageId = route.params?.rageId;
   const isEditing = !!editedRageId;
 
-  const selectedRage = rageCtx.rageQuakes.find(rage => rage.id === editedRageId)
+  const selectedRage = rageCtx.rageQuakes.find(
+    (rage) => rage.id === editedRageId
+  );
 
   function deleteRageHandler() {
     rageCtx.deleteRage(editedRageId);
@@ -36,6 +39,7 @@ export default function ManageRage({ navigation, route }) {
       rageCtx.updateRage(editedRageId, rageData);
     } else {
       rageCtx.addRage(rageData);
+      storeRage(rageData)
     }
 
     navigation.goBack();
@@ -75,7 +79,7 @@ const styles = StyleSheet.create({
   text: {
     color: Color.primary600,
     fontSize: FontSize.sizeTitle,
-    fontFamily: FontFamily.black
+    fontFamily: FontFamily.black,
   },
   manageContainer: {
     flex: 1,
@@ -98,6 +102,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: Color.primary600,
-    fontFamily: FontFamily.regular
+    fontFamily: FontFamily.regular,
   },
 });
