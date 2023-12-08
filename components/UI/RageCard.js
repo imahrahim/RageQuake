@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   item: {
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingBottom: 15,
     height: 130,
     width: "100%",
     marginVertical: 10,
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
 
   itemBackground: {
     flex: 1,
-    resizeMode: "contain", // or 'contain' for different image resizing options
+    resizeMode: "contain",
     justifyContent: "center",
     borderRadius: 10,
     backgroundColor: Color.primary600,
