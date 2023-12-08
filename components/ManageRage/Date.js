@@ -1,38 +1,44 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Platform, Pressable, Text } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { View, StyleSheet, TextInput } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function DatePicker({ onDateChange }) {
   const [chosenDate, setChosenDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
+  const componentMounted = useRef(true);
+
+  useEffect(() => {
+    if (componentMounted.current) {
+      // Skip the initial effect (component mount)
+      componentMounted.current = false;
+    } else {
+      setShowPicker(false);
+    }
+  }, [chosenDate]);
 
   const onDateTimeChange = (event, date) => {
-    setShowPicker(Platform.OS === "ios");
     if (event.type === "set" && date) {
       setChosenDate(date);
       onDateChange(date);
     }
   };
 
-  const showDatePicker = () => {
-    setShowPicker(true);
-  };
-
   return (
     <View style={styles.container}>
-      <Pressable onPress={showDatePicker}>
-        <Text>Show Date Picker</Text>
-      </Pressable>
-
       {showPicker && (
         <DateTimePicker
           value={chosenDate}
           mode="date"
           is24Hour={true}
-          display="default"
+          display="spinner"
           onChange={onDateTimeChange}
         />
       )}
+      <TextInput
+        placeholder={chosenDate ? chosenDate.toDateString() : "Select Date"}
+        editable={false}
+        onTouchStart={() => setShowPicker(true)}
+      />
     </View>
   );
 }
@@ -40,6 +46,7 @@ export default function DatePicker({ onDateChange }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 40,
+    marginTop: 20,
+    alignItems: "center",
   },
 });

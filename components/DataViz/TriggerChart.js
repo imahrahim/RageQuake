@@ -41,7 +41,7 @@ const TriggerChart = () => {
       style={{
         flex: 1,
         backgroundColor: Color.primary200,
-        borderRadius: 50,
+        borderRadius: 15,
         margin: 20,
       }}
     >
@@ -58,7 +58,7 @@ const TriggerChart = () => {
               <Circle
                 cx={centerX}
                 cy={centerY}
-                r={index * rStep}
+                r={(1+index) * rStep}
                 fill="none"
                 strokeWidth={strokeWidth}
                 stroke={Color.primary600}

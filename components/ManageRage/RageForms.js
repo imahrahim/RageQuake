@@ -16,7 +16,7 @@ import TriggerItem from "./TriggerItem";
 export default function RageForms({ onCancel, onSubmit, submitButtonLabel , defaultValues}) {
   const [inputValue, setInputValue] = useState({
     title: defaultValues? defaultValues.title : '',
-    timestamp: defaultValues? defaultValues.timestamp : '',
+    timestamp: defaultValues? new Date(defaultValues.timestamp ): '',
     intensity: defaultValues? defaultValues.intensity : null,
     trigger:defaultValues? defaultValues.trigger : null,
     situation: defaultValues? defaultValues.situation : null,
@@ -33,13 +33,15 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel , defa
   }
 
   function handleDateChange(date) {
-    const newTimestamp = new Date(date);
-    console.log("New timestamp:", newTimestamp);
-    setInputValue((currentInputValues) => ({
-      ...currentInputValues,
-      timestamp: newTimestamp.toISOString(),
-    }));
+    if (date) {
+      const newTimestamp = new Date(date);
+      setInputValue((currentInputValues) => ({
+        ...currentInputValues,
+        timestamp: newTimestamp.toISOString(),
+      }));
+    }
   }
+  
 
   function submitHandler() {
     const rageData = {
@@ -50,7 +52,7 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel , defa
       situation: inputValue.situation,
       description: inputValue.description,
     };
-    console.log("Submitting rageData:", rageData);
+   
     onSubmit(rageData);
   }
 
@@ -62,7 +64,7 @@ export default function RageForms({ onCancel, onSubmit, submitButtonLabel , defa
   };
 
   const handleIntensitySelect = (selectedIntensity) => {
-    console.log("Selected Situation:", selectedIntensity);
+   
     setInputValue((currentInputValues) => ({
       ...currentInputValues,
       intensity: selectedIntensity,

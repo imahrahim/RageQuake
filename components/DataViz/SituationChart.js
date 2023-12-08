@@ -42,7 +42,7 @@ const SituationChart = () => {
       style={{
         flex: 1,
         backgroundColor: Color.primary200,
-        borderRadius: 50,
+        borderRadius: 15,
         margin: 20,
       }}
     >
@@ -56,7 +56,7 @@ const SituationChart = () => {
               <Circle
                 cx={centerX}
                 cy={centerY}
-                r={index * 15}
+                r={(1+index) * 15}
                 fill="none"
                 strokeWidth={strokeWidth}
                 stroke={Color.primary600}

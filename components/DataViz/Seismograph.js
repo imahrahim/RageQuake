@@ -8,13 +8,15 @@ import { RageContext } from "../../store/rage-context"; // Import your context
 const Seismograph = () => {
   const rageCtx = useContext(RageContext); 
 
-// console.log(new Date(rageCtx.rageQuakes.timestamp))
+  
+
 
   const sortedData = rageCtx.rageQuakes.sort(
     (a, b) =>
-      moment(a.timestamp, "DD.MM.YYYY HH:mm") -
-      moment(b.timestamp, "DD.MM.YYYY HH:mm")
+      moment(a.timestamp, "YYYY-MM-DDTHH:mm:ss.SSSZ") -
+      moment(b.timestamp, "YYYY-MM-DDTHH:mm:ss.SSSZ")
   );
+
 
   const dayStep = 200;
   const windowDimensions = useWindowDimensions();
@@ -25,8 +27,10 @@ const Seismograph = () => {
 
   // Extract timestamps and intensities
   const timestamps = sortedData.map((item) =>
-  moment(item.timestamp, "DD.MM.YYYY")
+  moment(item.timestamp,"YYYY-MM-DDTHH:mm:ss.SSSZ")
 );
+
+console.log(timestamps)
 const intensities = sortedData.map((item) => item.intensity);
 
 
@@ -78,7 +82,7 @@ const intensities = sortedData.map((item) => item.intensity);
       pathString += ` L${x2},${y2} L${x3},${y3} L${x4},${y4}`;
     }
 
-    coordinates.push({ x4, y4 });
+    coordinates.push({ x1, y1,x4, y4 });
   }
 
   pathString += ` L${xOffset},${yOffset}`;
@@ -95,18 +99,22 @@ const intensities = sortedData.map((item) => item.intensity);
             stroke={Color.primary200}
             fill="none"
           />
-          {coordinates.map((coord, index) => (
-            <Text
-              key={index}
-              x={25}
-              y={coord.y4- dayStep*0.25}
-              fontSize="10"
-              fill={Color.primary200}
-              fontFamily={FontFamily.italic}
-            >
-              Datum
-            </Text>
-          ))}
+       {coordinates.map((coord, index) => (
+  <Fragment key={index}>
+    {timestamps[index] && timestamps[index].isValid() && (
+      <Text
+        x={10}
+        y={coord.y4 }
+        fontSize="10"
+        fill={Color.primary200}
+        fontFamily={FontFamily.italic}
+      >
+        {timestamps[index].format("DD.MM.YYYY")}
+      </Text>
+    )}
+  </Fragment>
+))}
+
              {coordinates.map((coord, index) => (
             <Line
               key={index}

@@ -21,7 +21,7 @@ export default function RageCard({
   const navigation = useNavigation();
 
   let levelImage;
-  console.log(intensity)
+  
 
   switch (intensity) {
     case 1:
@@ -57,7 +57,6 @@ export default function RageCard({
   }
 
   function ragePressHandler() {
-    console.log("Navigating to AddRage with rageId:", id);
     navigation.navigate("ManageRage", { rageId: id, itemData: title });
   }
 
