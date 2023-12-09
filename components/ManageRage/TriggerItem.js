@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Color, FontSize , FontFamily} from '../../constants/GlobalStyles';
 
-export default function TriggerItem({ triggers, onSelect, selected,defaultSelected }) {
+export default function TriggerItem({ triggers, onSelect, selected,defaultSelected, invalid }) {
 
 
   const handlePress = () => {
@@ -12,7 +12,7 @@ export default function TriggerItem({ triggers, onSelect, selected,defaultSelect
   return (
     <Pressable onPress={handlePress}>
       <View style={[styles.intensityButton]}>
-        <Text style={[styles.number, { fontFamily: selected ? FontFamily.black: FontFamily.regular }]}>
+        <Text style={[styles.number, { fontFamily: selected ? FontFamily.black: FontFamily.regular , color: invalid ? Color.secondary400 : Color.primary600,}]}>
           {triggers.trigger}
         </Text>
       </View>

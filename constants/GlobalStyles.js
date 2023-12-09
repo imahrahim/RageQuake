@@ -24,6 +24,7 @@ import { useFonts, Unbounded_900Black , Unbounded_400Regular } from '@expo-googl
   /* Colors */
   export const Color = {
     secondary600: "#310a0b",
+    secondary400: '#FF1200',
     primary600: "#001e1d",
     primary600_50: "#001e1d7f",
     primary200: "#ffffd7",

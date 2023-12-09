@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import { Color, FontFamily } from "../../constants/GlobalStyles";
-import DatePicker from "./Date";
 import MultiSelect from "./MultiSelect";
 
 import intensityData from "../../data/intensity";
@@ -20,72 +19,122 @@ export default function RageForms({
   submitButtonLabel,
   defaultValues,
 }) {
-  const [inputValue, setInputValue] = useState({
-    title: defaultValues ? defaultValues.title : "",
-    timestamp: defaultValues ? getFormattedDate(defaultValues.timestamp) : "",
-    intensity: defaultValues ? defaultValues.intensity : null,
-    trigger: defaultValues ? defaultValues.trigger : null,
-    situation: defaultValues ? defaultValues.situation : null,
+  const [inputs, setInputs] = useState({
+    title: {
+      value: defaultValues ? defaultValues.title : "",
+      isValid: true,
+    },
+    timestamp: {
+      value: defaultValues ? getFormattedDate(defaultValues.timestamp) : "",
+      isValid: true,
+    },
+    intensity: {
+      value: defaultValues ? defaultValues.intensity : null,
+      isValid: true,
+    },
+    trigger: {
+      value: defaultValues ? defaultValues.trigger : null,
+      isValid: true,
+    },
+    situation: {
+      value: defaultValues ? defaultValues.situation : null,
+      isValid: true,
+    },
     description: defaultValues ? defaultValues.description : "",
   });
 
   function inputChangedHandler(inputIdentifier, enteredValue) {
-    setInputValue((currentInputValues) => {
+    setInputs((currentInputs) => {
       return {
-        ...currentInputValues,
-        [inputIdentifier]: enteredValue,
+        ...currentInputs,
+        [inputIdentifier]: { value: enteredValue, isValid: true },
       };
     });
   }
 
   function handleDateChange(date) {
     if (date) {
-      setInputValue((currentInputValues) => ({
-        ...currentInputValues,
-        timestamp: date,
+      setInputs((currentInputs) => ({
+        ...currentInputs,
+        timestamp: { value: date, isValid: true },
       }));
     }
   }
 
   function submitHandler() {
     const rageData = {
-      title: inputValue.title,
-      timestamp: new Date(inputValue.timestamp),
-      intensity: inputValue.intensity,
-      trigger: inputValue.trigger,
-      situation: inputValue.situation,
-      description: inputValue.description,
+      title: inputs.title.value,
+      timestamp: new Date(inputs.timestamp.value),
+      intensity: inputs.intensity.value,
+      trigger: inputs.trigger.value,
+      situation: inputs.situation.value,
+      description: inputs.description,
     };
 
     const intensityIsValid =
-      !isNaN(rageData.intensity) && rageData.intensity > 0;
+    rageData.intensity !== null;
     const timestampIsValid = rageData.timestamp.toString() !== "Invalid Date";
     const titleIsValid = rageData.title.trim().length > 0;
     const triggerIsValid = rageData.trigger !== null;
     const situationIsValid = rageData.situation !== null;
 
-if (!intensityIsValid || !timestampIsValid || !titleIsValid || !triggerIsValid || !situationIsValid){
- Alert.alert('Invalid input', 'Please check your input values')
-  return;
-}
+    if (
+      !intensityIsValid ||
+      !timestampIsValid ||
+      !titleIsValid ||
+      !triggerIsValid ||
+      !situationIsValid
+    ) {
+      //  Alert.alert('Invalid input', 'Please check your input values')
+      setInputs((currentInputs) => {
+        return {
+          title: { value: currentInputs.title.value, isValid: titleIsValid },
+          timestamp: {
+            value: currentInputs.timestamp.value,
+            isValid: timestampIsValid,
+          },
+          intensity: {
+            value: currentInputs.intensity.value,
+            isValid: intensityIsValid,
+          },
+          trigger: {
+            value: currentInputs.trigger.value,
+            isValid: triggerIsValid,
+          },
+          situation: {
+            value: currentInputs.situation.value,
+            isValid: situationIsValid,
+          },
+        };
+      });
+      return;
+    }
 
     onSubmit(rageData);
   }
 
-  const handleSelect = (selectedOption, type) => {
-    setInputValue((currentInputValues) => ({
-      ...currentInputValues,
-      [type]: selectedOption,
-    }));
-  };
+  const formIsInvalid =
+    !inputs.title.isValid ||
+    !inputs.timestamp.isValid ||
+    !inputs.intensity.isValid ||
+    !inputs.trigger.isValid ||
+    !inputs.situation.isValid;
 
-  const handleIntensitySelect = (selectedIntensity) => {
-    setInputValue((currentInputValues) => ({
-      ...currentInputValues,
-      intensity: selectedIntensity,
-    }));
-  };
-  console.log("Timestamp value:", inputValue.timestamp);
+    const handleSelect = (selectedOption, type) => {
+      setInputs((currentInputs) => ({
+        ...currentInputs,
+        [type]: { value: selectedOption, isValid: true },
+      }));
+    };
+    
+    const handleIntensitySelect = (selectedIntensity) => {
+      setInputs((currentInputs) => ({
+        ...currentInputs,
+        intensity: { value: selectedIntensity, isValid: true },
+      }));
+    };
+    
+  console.log("Timestamp value:", inputs.timestamp.value);
   return (
     <View>
       <View style={styles.buttonContainer}>
@@ -98,19 +147,21 @@ if (!intensityIsValid || !timestampIsValid || !titleIsValid || !triggerIsValid |
       </View>
       <Input
         label="DATE"
+        invalid={!inputs.timestamp.isValid}
         textInputConfig={{
           placeholder: "YYYY-MM-DD",
-          value: inputValue.timestamp,
+          value: inputs.timestamp.value,
           onChangeText: (text) => handleDateChange(text),
           maxLength: 10,
         }}
       />
       <Input
         label="RAGEQUAKE"
+        invalid={!inputs.title.isValid}
         textInputConfig={{
           placeholder: "Add Title",
           onChangeText: inputChangedHandler.bind(this, "title"),
-          value: inputValue.title,
+          value: inputs.title.value,
           maxLength: 100,
           autoCorrect: false,
           autoCapitalize: "words",
@@ -118,17 +169,20 @@ if (!intensityIsValid || !timestampIsValid || !titleIsValid || !triggerIsValid |
       />
       <MultiSelect
         label="INTENSITY RICHTER"
+        invalid={!inputs.intensity.isValid}
         data={intensityData}
         renderItem={({ item }) => (
           <IntensityItem
             intensityData={item}
             onSelect={handleIntensitySelect}
-            selected={inputValue.intensity === item.intensity}
+            selected={inputs.intensity.value === item.intensity}
+            invalid={!inputs.intensity.isValid}
           />
         )}
       />
       <MultiSelect
         label="EPICENTER INSTIGATOR"
+        invalid={!inputs.trigger.isValid}
         data={triggers}
         renderItem={({ item }) => (
           <TriggerItem
@@ -136,16 +190,18 @@ if (!intensityIsValid || !timestampIsValid || !titleIsValid || !triggerIsValid |
             onSelect={(selectedOption) =>
               handleSelect(selectedOption, "trigger")
             }
-            selected={inputValue.trigger === item.trigger}
+            selected={inputs.trigger.value === item.trigger}
             defaultSelected={
               defaultValues ? defaultValues.trigger === item.trigger : false
             }
+            invalid={!inputs.trigger.isValid}
           />
         )}
       />
 
       <MultiSelect
         label="SEISMIC SCENARIO"
+        invalid={!inputs.situation.isValid}
         data={situations}
         renderItem={({ item }) => (
           <SituationItem
@@ -153,10 +209,11 @@ if (!intensityIsValid || !timestampIsValid || !titleIsValid || !triggerIsValid |
             onSelect={(selectedOption) =>
               handleSelect(selectedOption, "situation")
             }
-            selected={inputValue.situation === item.situation}
+            selected={inputs.situation.value === item.situation}
             defaultSelected={
               defaultValues ? defaultValues.situation === item.situation : false
             }
+            invalid={!inputs.situation.isValid}
           />
         )}
       />
@@ -165,12 +222,17 @@ if (!intensityIsValid || !timestampIsValid || !titleIsValid || !triggerIsValid |
         textInputConfig={{
           placeholder: "Description",
           onChangeText: inputChangedHandler.bind(this, "description"),
-          value: inputValue.description,
+          value: inputs.description,
           multiline: true,
           autoCorrect: false,
         }}
         style={{ height: 150 }}
       />
+      {formIsInvalid && (
+        <Text style={styles.errorText}>
+          Invalid input values - please check your input data
+        </Text>
+      )}
     </View>
   );
 }
@@ -187,5 +249,11 @@ const styles = StyleSheet.create({
   },
   date: {
     alignSelf: "stretch",
+  },
+  errorText: {
+    textAlign: "center",
+    color: Color.secondary400,
+    margin: 8,
+    fontFamily: FontFamily.regular,
   },
 });

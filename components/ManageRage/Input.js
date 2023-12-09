@@ -3,7 +3,7 @@ import React from "react";
 
 import { Color, FontSize, Margin, Padding , FontFamily} from "../../constants/GlobalStyles";
 
-export default function Input({ label, textInputConfig }) {
+export default function Input({ label, textInputConfig, invalid }) {
 
     let inputStyles = [styles.textInput]
 
@@ -12,8 +12,8 @@ export default function Input({ label, textInputConfig }) {
     }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{label}</Text>
-      <TextInput style={inputStyles} {...textInputConfig} />
+      <Text style={[styles.title, invalid && styles.invalidLabel]}>{label}</Text>
+      <TextInput style={[inputStyles, invalid && styles.invalidInput]} {...textInputConfig} />
     </View>
   );
 }
@@ -44,5 +44,12 @@ const styles = StyleSheet.create({
     padding: Padding.paddingText,
     marginVertical: Margin.marginContentVerticla,
     borderRadius: 10,
+  },
+  invalidLabel: {
+    color: Color.secondary400,
+    fontFamily: FontFamily.black
+  },
+  invalidInput: {
+borderColor: Color.secondary400
   }
 });
