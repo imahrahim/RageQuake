@@ -1,10 +1,11 @@
-import { useFonts, Kanit_400Regular, Kanit_400Regular_Italic, Kanit_900Black, Kanit_900Black_Italic } from '@expo-google-fonts/kanit';
+import { useFonts, Unbounded_900Black , Unbounded_400Regular } from '@expo-google-fonts/unbounded';
+
   /* fontFamily */
   export const FontFamily = {
-    regular: 'Kanit_400Regular',
-    italic: 'Kanit_400Regular_Italic',
-    black: 'Kanit_900Black',
-    blackItalic: 'Kanit_900Black_Italic',
+    regular: 'Unbounded_400Regular',
+    italic: 'Unbounded_400Regular',
+    black: 'Unbounded_900Black',
+    blackItalic: 'Unbounded_900Black',
     
   };
 
@@ -13,7 +14,7 @@ import { useFonts, Kanit_400Regular, Kanit_400Regular_Italic, Kanit_900Black, Ka
 /* font sizes */
   export const FontSize = {
     sizeMenu: 15,
-    sizeIntensity: 40,
+    sizeIntensity: 30,
     sizeTitle: 20,
     sizeDescription: 12,
     sizeDate: 12,

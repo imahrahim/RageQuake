@@ -13,7 +13,7 @@ import { useContext } from "react";
 import { RageContext } from "../store/rage-context";
 
 import RageForms from "../components/ManageRage/RageForms";
-import { storeRage } from "../util/http";
+import { deleteRages, storeRage, updateRages } from "../util/http";
 
 export default function ManageRage({ navigation, route }) {
   const rageCtx = useContext(RageContext);
@@ -25,25 +25,42 @@ export default function ManageRage({ navigation, route }) {
     (rage) => rage.id === editedRageId
   );
 
-  function deleteRageHandler() {
-    rageCtx.deleteRage(editedRageId);
-    navigation.goBack();
+  async function deleteRageHandler() {
+    if (editedRageId) {
+      await deleteRages(editedRageId);
+      rageCtx.deleteRage(editedRageId);
+      navigation.goBack();
+    } else {
+      console.error("Invalid rage id");
+    }
   }
+  
 
   function cancelHandler() {
     navigation.goBack();
   }
 
-  function confirmHandler(rageData) {
-    if (isEditing) {
-      rageCtx.updateRage(editedRageId, rageData);
-    } else {
-      rageCtx.addRage(rageData);
-      storeRage(rageData)
+  async function confirmHandler(rageData) {
+    try {
+      console.log("Updating rageData:", rageData);
+      
+      if (isEditing) {
+        await updateRages(editedRageId, rageData);
+        rageCtx.updateRage(editedRageId, rageData);
+      } else {
+        const id = await storeRage(rageData);
+        rageCtx.addRage({ ...rageData, id: id });
+      }
+      navigation.goBack();
+    } catch (error) {
+      console.error("Error updating rage:", error);
+      // Handle the error as needed
     }
-
-    navigation.goBack();
   }
+  
+  
+  
+  
 
   return (
     <ScrollView style={styles.container}>

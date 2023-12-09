@@ -1,52 +1,39 @@
-import React, { useState, useEffect, useRef } from "react";
-import { View, StyleSheet, TextInput } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import React, { useState, useEffect } from 'react';
+import { View, Text, Pressable, TextInput } from 'react-native';
 
-export default function DatePicker({ onDateChange }) {
-  const [chosenDate, setChosenDate] = useState(new Date());
-  const [showPicker, setShowPicker] = useState(false);
-  const componentMounted = useRef(true);
+const RageForms = ({ onCancel, onSubmit, submitButtonLabel, defaultValues }) => {
+  const [selectedDate, setSelectedDate] = useState('');
 
   useEffect(() => {
-    if (componentMounted.current) {
-      // Skip the initial effect (component mount)
-      componentMounted.current = false;
-    } else {
-      setShowPicker(false);
+    // Update the selected date when defaultValues changes
+    if (defaultValues?.timestamp) {
+      setSelectedDate(defaultValues.timestamp);
     }
-  }, [chosenDate]);
+  }, [defaultValues]);
 
-  const onDateTimeChange = (event, date) => {
-    if (event.type === "set" && date) {
-      setChosenDate(date);
-      onDateChange(date);
-    }
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+  };
+
+  const handleFormSubmit = () => {
+    onSubmit({
+      // Other form fields...
+      timestamp: selectedDate,
+    });
   };
 
   return (
-    <View style={styles.container}>
-      {showPicker && (
-        <DateTimePicker
-          value={chosenDate}
-          mode="date"
-          is24Hour={true}
-          display="spinner"
-          onChange={onDateTimeChange}
-        />
-      )}
+    <View>
+
       <TextInput
-        placeholder={chosenDate ? chosenDate.toDateString() : "Select Date"}
-        editable={false}
-        onTouchStart={() => setShowPicker(true)}
+        placeholder="Enter date (e.g., YYYY-MM-DD)"
+        value={selectedDate}
+        onChangeText={handleDateChange}
       />
+
+      <Pressable title={submitButtonLabel} onPress={handleFormSubmit} />
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 20,
-    alignItems: "center",
-  },
-});
+export default RageForms;

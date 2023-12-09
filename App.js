@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useFonts, Kanit_400Regular, Kanit_400Regular_Italic, Kanit_900Black, Kanit_900Black_Italic } from '@expo-google-fonts/kanit';
+import { useFonts, Unbounded_900Black , Unbounded_400Regular } from '@expo-google-fonts/unbounded';
 import AppLoading from "expo-app-loading";
 
 
@@ -53,10 +53,8 @@ function AnalysisTabs() {
 
 function RageQuake({ navigation }) {
   const [fontsLoaded] = useFonts({
-    Kanit_400Regular,
-    Kanit_400Regular_Italic,
-    Kanit_900Black,
-    Kanit_900Black_Italic
+    Unbounded_400Regular,
+    Unbounded_900Black,
   });
 
   if (!fontsLoaded) {

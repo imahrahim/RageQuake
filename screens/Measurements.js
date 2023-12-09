@@ -11,14 +11,17 @@ function Measurements() {
     async function getRages() {
       try {
         const rages = await fetchRage();
+        console.log("Fetched rages:", rages);
         rageContext.setRages(rages);
       } catch (error) {
         console.error("Error fetching rages:", error);
       }
     }
-
+  
+    console.log("Calling getRages...");
     getRages();
   }, [rageContext]);
+  
 
 
   return (

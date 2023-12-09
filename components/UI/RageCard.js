@@ -9,6 +9,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 import { Color, FontSize, FontFamily } from "../../constants/GlobalStyles";
+import { getFormattedDate } from "../../util/date";
 
 export default function RageCard({
   timestamp,
@@ -72,7 +73,7 @@ export default function RageCard({
       >
         <View style={styles.item}>
           {/* Your existing content */}
-          <Text style={styles.itemDate}>{timestamp}</Text>
+          <Text style={styles.itemDate}>{getFormattedDate(timestamp)}</Text>
           <Text style={styles.itemTitle}>{title}</Text>
         </View>
       </ImageBackground>
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   },
   item: {
     paddingHorizontal: 20,
-    paddingBottom: 15,
+    padding: 5,
     height: 130,
     width: "100%",
     marginVertical: 10,
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   itemTitle: {
-    fontFamily: FontFamily.blackItalic,
+    fontFamily: FontFamily.black,
     fontSize: FontSize.sizeTitle,
     color: Color.primary600,
     alignSelf: "center",
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.sizeDate,
     color: Color.primary600,
     alignSelf: "flex-end",
-    fontFamily: FontFamily.italic,
+    fontFamily: FontFamily.black,
   },
   pressed: {
     opacity: 0.75,

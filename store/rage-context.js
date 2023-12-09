@@ -12,10 +12,9 @@ export const RageContext = createContext({
 function rageReducer(state, action) {
   switch (action.type) {
     case "ADD":
-      const id = new Date().toString() + Math.random().toString();
-      return [{ ...action.payload, id }, ...state];
+      return [action.payload, ...state];
       case 'SET':
-        return action.payload;
+        return action.payload
     case "UPDATE":
       const updateableRageIndex = state.findIndex(
         (item) => item.id === action.payload.id
@@ -39,7 +38,8 @@ function RageContextProvider({ children }) {
   }
 
   function setRages(rages) {
-    dispatch({ type: "SET", payload: rages });
+    const inverted = rages.reverse();
+    dispatch({ type: "SET", payload: inverted });
   }
 
   function deleteRage(id) {
@@ -52,10 +52,10 @@ function RageContextProvider({ children }) {
 
   const value = {
     rageQuakes: rageState,
-    setRages: setRages, // Fix: Use setRages instead of setRage
+    setRages: setRages, 
     addRage: addRage,
     deleteRage: deleteRage,
-    updateRage: updateRage, // Optionally, you can use shorthand syntax: updateRage
+    updateRage: updateRage, 
   };
 
   return (
