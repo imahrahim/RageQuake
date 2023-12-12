@@ -30,7 +30,7 @@ const Seismograph = () => {
   moment(item.timestamp,"YYYY-MM-DDTHH:mm:ss.SSSZ")
 );
 
-// console.log('timestamps', timestamps)
+//console.log('timestamps', timestamps)
 
 const intensities = sortedData.map((item) => item.intensity);
 
@@ -46,6 +46,7 @@ const intensities = sortedData.map((item) => item.intensity);
   let pathString = "";
 
   const coordinates = [];
+  const textCoordinates = [];
   
 
   for (
@@ -63,11 +64,17 @@ const intensities = sortedData.map((item) => item.intensity);
     const y1 =
       (date.diff(endDate, "days") - yStep * 4) *
       (chartHeight / startDate.diff(endDate, "days"));
-    const x2 =
-      dataIndex !== -1 ? xOffset + intensities[dataIndex] * scaleX : xOffset;
+    let x2;
+     // dataIndex !== -1 ? xOffset + intensities[dataIndex] * scaleX : xOffset;
+      if(dataIndex !== -1){ 
+       let y2= (date.diff(endDate, "days") - yStep * 3) *
+        (chartHeight / startDate.diff(endDate, "days"));
+        x2=xOffset + intensities[dataIndex] * scaleX;
+        textCoordinates.push({x2,y2})
+      }else{x2=xOffset}
     const y2 =
-      (date.diff(endDate, "days") - yStep * 3) *
-      (chartHeight / startDate.diff(endDate, "days"));
+    (date.diff(endDate, "days") - yStep * 3) *
+    (chartHeight / startDate.diff(endDate, "days"));
     const x3 =
       dataIndex !== -1 ? xOffset - intensities[dataIndex] * scaleX : xOffset;
     const y3 =
@@ -85,7 +92,10 @@ const intensities = sortedData.map((item) => item.intensity);
     }
 
     coordinates.push({ x4, y4 });
+    
   }
+  console.log('coordinates', textCoordinates)
+
 
   pathString += ` L${xOffset},${yOffset}`;
 
@@ -101,17 +111,16 @@ const intensities = sortedData.map((item) => item.intensity);
             stroke={Color.primary200}
             fill="none"
           />
-       {coordinates.map((coordinates, index) => (
+       {textCoordinates.map((coordinate, index) => (
   <Fragment key={index}>
     {timestamps[index] && timestamps[index].isValid() && (
       <Text
         x={10}
-        y={coordinates.y4 }
+        y={coordinate.y2 }
         fontSize="10"
         fill={Color.primary200}
       >
-        {timestamps[index].format("DD.MM.YYYY")}
-        {/* { coord.y4 } */}
+        {timestamps[index].format("DD.MM.YYYY")} 
       </Text>
     )}
   </Fragment>
@@ -127,7 +136,7 @@ const intensities = sortedData.map((item) => item.intensity);
                 stroke={Color.primary200_20}
                 strokeWidth={strokeWidth}
            />
-          ))}
+          ))} 
           <Fragment>
           {[0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((scaleIndex) => (
               <Line

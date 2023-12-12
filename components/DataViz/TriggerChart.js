@@ -37,6 +37,7 @@ const TriggerChart = () => {
   const rStep = 12;
 
   return (
+    
     <View
       style={{
         flex: 1,
@@ -51,11 +52,12 @@ const TriggerChart = () => {
       >
         {triggerData.map((item, index) => {
           const percentage = (item.count / totalDataCount) * 100;
-          const strokeWidth = (percentage / 100) * 30;
+          const strokeWidth = (rStep/100*percentage ) ;
 
           return (
             <Fragment key={index}>
               <Circle
+              class="epi"
                 cx={centerX}
                 cy={centerY}
                 r={(1+index) * rStep}
@@ -84,6 +86,7 @@ const TriggerChart = () => {
                 fill={Color.primary600}
                 textAnchor="left"
                 fontStyle="italic"
+                fontFamily={FontFamily.black}
               >
                 {item.trigger} {}
                 {percentage.toFixed(0)}%
@@ -94,6 +97,7 @@ const TriggerChart = () => {
            
       </Svg>
     </View>
+    
   );
 };
 

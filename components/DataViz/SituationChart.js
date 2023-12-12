@@ -36,6 +36,7 @@ const SituationChart = () => {
   const windowDimensions = useWindowDimensions();
   const centerX = (windowDimensions.width / 2) - 20
   const centerY = windowDimensions.height / 4;
+  const rStep = 12;
 
   return (
     <View
@@ -49,14 +50,14 @@ const SituationChart = () => {
       <Svg width={windowDimensions.width} height={windowDimensions.height*0.5}>
         {situationData.map((item, index) => {
           const percentage = (item.count / totalDataCount) * 100;
-          const strokeWidth = (percentage / 100) * 30; // Adjust the multiplier for desired thickness
+          const strokeWidth = (rStep/100*percentage)
 
           return (
             <Fragment key={index}>
               <Circle
                 cx={centerX}
                 cy={centerY}
-                r={(1+index) * 15}
+                r={(1+index) * rStep}
                 fill="none"
                 strokeWidth={strokeWidth}
                 stroke={Color.primary600}
@@ -77,7 +78,7 @@ const SituationChart = () => {
           return (
             <Fragment key={index}>
               <Text
-                y={centerY + 18 + index * 15}
+                y={centerY + 18 + index * rStep}
                 x={centerX + 5}
                 fontSize="12"
                 fill={Color.primary600}
