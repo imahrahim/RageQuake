@@ -18,7 +18,7 @@ const Seismograph = () => {
   );
 
 
-  const dayStep = 200;
+  const dayStep = 100;
   const windowDimensions = useWindowDimensions();
   const chartWidth = windowDimensions.width / 3;
   const chartHeight = sortedData.length * dayStep;
@@ -30,9 +30,11 @@ const Seismograph = () => {
   moment(item.timestamp,"YYYY-MM-DDTHH:mm:ss.SSSZ")
 );
 
-console.log(timestamps)
+// console.log('timestamps', timestamps)
+
 const intensities = sortedData.map((item) => item.intensity);
 
+// console.log('intensities', intensities)
 
   const startDate = moment("05.11.2023", "DD.MM.YYYY");
   const endDate = moment();
@@ -82,7 +84,7 @@ const intensities = sortedData.map((item) => item.intensity);
       pathString += ` L${x2},${y2} L${x3},${y3} L${x4},${y4}`;
     }
 
-    coordinates.push({ x1, y1,x4, y4 });
+    coordinates.push({ x4, y4 });
   }
 
   pathString += ` L${xOffset},${yOffset}`;
@@ -99,17 +101,17 @@ const intensities = sortedData.map((item) => item.intensity);
             stroke={Color.primary200}
             fill="none"
           />
-       {coordinates.map((coord, index) => (
+       {coordinates.map((coordinates, index) => (
   <Fragment key={index}>
     {timestamps[index] && timestamps[index].isValid() && (
       <Text
         x={10}
-        y={coord.y4 }
+        y={coordinates.y4 }
         fontSize="10"
         fill={Color.primary200}
-        fontFamily={FontFamily.italic}
       >
         {timestamps[index].format("DD.MM.YYYY")}
+        {/* { coord.y4 } */}
       </Text>
     )}
   </Fragment>

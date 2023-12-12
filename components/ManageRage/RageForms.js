@@ -134,7 +134,7 @@ export default function RageForms({
       }));
     };
     
-  console.log("Timestamp value:", inputs.timestamp.value);
+
   return (
     <View>
       <View style={styles.buttonContainer}>
@@ -146,7 +146,7 @@ export default function RageForms({
         </Pressable>
       </View>
       <Input
-        label="DATE"
+        label="SEISMIC SCHEDULE"
         invalid={!inputs.timestamp.isValid}
         textInputConfig={{
           placeholder: "YYYY-MM-DD",
@@ -156,7 +156,7 @@ export default function RageForms({
         }}
       />
       <Input
-        label="RAGEQUAKE"
+        label="ANGER ANECDOTE"
         invalid={!inputs.title.isValid}
         textInputConfig={{
           placeholder: "Add Title",
@@ -200,7 +200,7 @@ export default function RageForms({
       />
 
       <MultiSelect
-        label="SEISMIC SCENARIO"
+        label="TEMPER TERRAIN"
         invalid={!inputs.situation.isValid}
         data={situations}
         renderItem={({ item }) => (

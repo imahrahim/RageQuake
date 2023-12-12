@@ -43,7 +43,7 @@ function AnalysisTabs() {
     })}
     >
       <MaterialTopTabs.Screen name="Seismograph" component={Seismograph}/>
-      <MaterialTopTabs.Screen name="Epicentrum" component={Analysis}/>
+      <MaterialTopTabs.Screen name="Epicenter" component={Analysis}/>
       {/* <MaterialTopTabs.Screen name="Trigger" component={TriggerChart} />
       <MaterialTopTabs.Screen name="Situation" component={SituationChart} /> */}
     </MaterialTopTabs.Navigator>

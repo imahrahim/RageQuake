@@ -42,7 +42,7 @@ export default function ManageRage({ navigation, route }) {
 
   async function confirmHandler(rageData) {
     try {
-      console.log("Updating rageData:", rageData);
+      
       
       if (isEditing) {
         await updateRages(editedRageId, rageData);
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    margin: 50,
+    margin: 25,
   },
   text: {
     color: Color.primary600,

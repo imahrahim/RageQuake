@@ -11,7 +11,7 @@ export default function IntensityItem({
   const handlePress = () => {
     onSelect(intensityData.intensity);
   };
-  console.log("IntensityItem - invalid:", invalid); 
+ 
   return (
     <Pressable onPress={handlePress}>
       <View
