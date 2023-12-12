@@ -9,8 +9,9 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Color, FontSize, FontFamily } from "../constants/GlobalStyles";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { RageContext } from "../store/rage-context";
+import { LinearGradient } from "expo-linear-gradient";
 
 import RageForms from "../components/ManageRage/RageForms";
 import { deleteRages, storeRage, updateRages } from "../util/http";
@@ -34,16 +35,12 @@ export default function ManageRage({ navigation, route }) {
       console.error("Invalid rage id");
     }
   }
-  
 
   function cancelHandler() {
     navigation.goBack();
   }
-
   async function confirmHandler(rageData) {
     try {
-      
-      
       if (isEditing) {
         await updateRages(editedRageId, rageData);
         rageCtx.updateRage(editedRageId, rageData);
@@ -57,13 +54,20 @@ export default function ManageRage({ navigation, route }) {
       // Handle the error as needed
     }
   }
-  
-  
-  
-  
+
+  const [isPressed, setIsPressed] = useState(false);
+
+  const handlePressIn = () => {
+    setIsPressed(true);
+  };
+
+  const handlePressOut = () => {
+    setIsPressed(false);
+  };
+
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar style="dark" />
       <SafeAreaView style={styles.contentContainer}>
         <View style={styles.manageContainer}>
@@ -76,11 +80,16 @@ export default function ManageRage({ navigation, route }) {
         </View>
       </SafeAreaView>
       {isEditing && (
-        <Pressable style={styles.buttonDelete} onPress={deleteRageHandler}>
-          <Text style={styles.buttonText}>delete</Text>
+        <Pressable onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+         onPress={deleteRageHandler}
+         style={styles.buttonDelete}
+         >
+          <Text style={isPressed ? styles.textPressed : styles.buttonText}>delete</Text>
         </Pressable>
       )}
-    </ScrollView>
+
+    </View>
   );
 }
 
@@ -107,9 +116,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingTop: 8,
     width: 150,
-    marginBottom: 80,
+    marginBottom: 38,
     borderTopColor: Color.primary600,
     borderTopWidth: 1,
+    position: "absolute",
+    bottom: 0,
+    backgroundColor: Color.primary200,
   },
   textInput: {
     borderColor: Color.secondary600,
@@ -120,5 +132,9 @@ const styles = StyleSheet.create({
   buttonText: {
     color: Color.primary600,
     fontFamily: FontFamily.regular,
+  },
+  textPressed: {
+    color: Color.primary600,
+    fontFamily: FontFamily.black,
   },
 });

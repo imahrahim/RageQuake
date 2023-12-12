@@ -1,15 +1,21 @@
 import React, { Fragment, useContext } from "react";
-import { View, useWindowDimensions, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  useWindowDimensions,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import Svg, { Text, Path, Line } from "react-native-svg";
 import moment from "moment";
 import { Color, FontFamily } from "../../constants/GlobalStyles";
 import { RageContext } from "../../store/rage-context"; // Import your context
 
+function compareDates(a, b) {
+  return moment(a).isSame(b, "day");
+}
+
 const Seismograph = () => {
-  const rageCtx = useContext(RageContext); 
-
-  
-
+  const rageCtx = useContext(RageContext);
 
   const sortedData = rageCtx.rageQuakes.sort(
     (a, b) =>
@@ -17,6 +23,7 @@ const Seismograph = () => {
       moment(b.timestamp, "YYYY-MM-DDTHH:mm:ss.SSSZ")
   );
 
+  // console.log('sortedData',sortedData)
 
   const dayStep = 100;
   const windowDimensions = useWindowDimensions();
@@ -24,17 +31,17 @@ const Seismograph = () => {
   const chartHeight = sortedData.length * dayStep;
   const xOffset = windowDimensions.width / 2 + 30;
   const yOffset = -5;
+  const ySpace = 50;
 
-  // Extract timestamps and intensities
   const timestamps = sortedData.map((item) =>
-  moment(item.timestamp,"YYYY-MM-DDTHH:mm:ss.SSSZ")
-);
+    moment(item.timestamp, "YYYY-MM-DDTHH:mm:ss.SSSZ")
+  );
 
-//console.log('timestamps', timestamps)
+  //console.log('timestamps', timestamps)
 
-const intensities = sortedData.map((item) => item.intensity);
+  const intensities = sortedData.map((item) => item.intensity);
 
-// console.log('intensities', intensities)
+  // console.log('intensities', intensities)
 
   const startDate = moment("05.11.2023", "DD.MM.YYYY");
   const endDate = moment();
@@ -42,60 +49,60 @@ const intensities = sortedData.map((item) => item.intensity);
   const yStep = 1 / 4;
   const scaleX = chartWidth / 10;
 
-
   let pathString = "";
 
   const coordinates = [];
   const textCoordinates = [];
-  
+
+  const intensityMap = {};
+  sortedData.forEach((item) => {
+    const date = moment(item.timestamp, "YYYY-MM-DDTHH:mm:ss.SSSZ").format(
+      "YYYY-MM-DD"
+    );
+    intensityMap[date] = item.intensity;
+  });
 
   for (
     let date = startDate.clone();
     date.isSameOrBefore(endDate);
     date.add(1, "day")
   ) {
-    const dataIndex = timestamps.findIndex((timestamp) =>
-      timestamp.isSame(date, "day")
-    );
-  
-
-    // Calculate X and Y positions
-    const x1 = dataIndex !== -1 ? xOffset : xOffset;
+    const x1 = xOffset;
     const y1 =
       (date.diff(endDate, "days") - yStep * 4) *
-      (chartHeight / startDate.diff(endDate, "days"));
-    let x2;
-     // dataIndex !== -1 ? xOffset + intensities[dataIndex] * scaleX : xOffset;
-      if(dataIndex !== -1){ 
-       let y2= (date.diff(endDate, "days") - yStep * 3) *
-        (chartHeight / startDate.diff(endDate, "days"));
-        x2=xOffset + intensities[dataIndex] * scaleX;
-        textCoordinates.push({x2,y2})
-      }else{x2=xOffset}
+        (chartHeight / startDate.diff(endDate, "days")) +
+      ySpace;
+
+    const intensity = intensityMap[date.format("YYYY-MM-DD")];
+    const x2 = xOffset + (intensity || 0) * scaleX;
     const y2 =
-    (date.diff(endDate, "days") - yStep * 3) *
-    (chartHeight / startDate.diff(endDate, "days"));
-    const x3 =
-      dataIndex !== -1 ? xOffset - intensities[dataIndex] * scaleX : xOffset;
+      (date.diff(endDate, "days") - yStep * 3) *
+        (chartHeight / startDate.diff(endDate, "days")) +
+      ySpace;
+
+    const x3 = xOffset - (intensity || 0) * scaleX;
     const y3 =
       (date.diff(endDate, "days") - yStep * 2) *
-      (chartHeight / startDate.diff(endDate, "days"));
-    const x4 = dataIndex !== -1 ? xOffset : xOffset;
+        (chartHeight / startDate.diff(endDate, "days")) +
+      ySpace;
+
+    const x4 = xOffset;
     const y4 =
       (date.diff(endDate, "days") - yStep * 1) *
-      (chartHeight / startDate.diff(endDate, "days"));
+        (chartHeight / startDate.diff(endDate, "days")) +
+      ySpace;
 
     if (pathString === "") {
       pathString += `M${x1},${y1}`;
     } else {
       pathString += ` L${x2},${y2} L${x3},${y3} L${x4},${y4}`;
     }
-
+    if (intensity !== undefined) {
+      const yText = y2; // or choose another suitable y-coordinate
+      textCoordinates.push({ x: x2, y: yText });
+    }
     coordinates.push({ x4, y4 });
-    
   }
-  console.log('coordinates', textCoordinates)
-
 
   pathString += ` L${xOffset},${yOffset}`;
 
@@ -111,56 +118,90 @@ const intensities = sortedData.map((item) => item.intensity);
             stroke={Color.primary200}
             fill="none"
           />
-       {textCoordinates.map((coordinate, index) => (
-  <Fragment key={index}>
-    {timestamps[index] && timestamps[index].isValid() && (
-      <Text
-        x={10}
-        y={coordinate.y2 }
-        fontSize="10"
-        fill={Color.primary200}
-      >
-        {timestamps[index].format("DD.MM.YYYY")} 
-      </Text>
-    )}
-  </Fragment>
-))}
+          {textCoordinates.map((coordinate, index) => (
+            <Fragment key={index}>
+              {timestamps[index] && timestamps[index].isValid() && (
+                <Text
+                  x={10}
+                  y={coordinate.y}
+                  fontSize="12"
+                  fontWeight="bold"
+                  fill={Color.primary200}
+                >
+                  {timestamps[index].format("DD.MM.YYYY")}
+                </Text>
+              )}
+            </Fragment>
+          ))}
 
-             {coordinates.map((coord, index) => (
+          {coordinates.map((coord, index) => (
             <Line
               key={index}
-              x1={coord.x4 -150}
-                y1={coord.y4}
-                x2={coord.x4 + 150}
-                y2={coord.y4 }
-                stroke={Color.primary200_20}
-                strokeWidth={strokeWidth}
-           />
-          ))} 
+              x1={coord.x4 - 150}
+              y1={coord.y4}
+              x2={coord.x4 + 150}
+              y2={coord.y4}
+              stroke={Color.primary200_20}
+              strokeWidth={strokeWidth}
+            />
+          ))}
           <Fragment>
-          {[0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((scaleIndex) => (
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((scaleIndex) => (
               <Line
                 key={scaleIndex}
                 x1={xOffset + scaleX * scaleIndex}
-                y1="0"
+                y1={dayStep * yStep}
                 x2={xOffset + scaleX * scaleIndex}
-                y2={chartHeight + 30}
+                y2={chartHeight + ySpace + 30}
                 stroke={Color.primary200_20}
                 strokeWidth={strokeWidth}
               />
-              ))}
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((scaleIndex) => (
+            ))}
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((scaleIndex) => (
               <Line
                 key={scaleIndex}
                 x1={xOffset - scaleX * scaleIndex}
-                y1="0"
+                y1={dayStep * yStep * 2}
                 x2={xOffset - scaleX * scaleIndex}
-                y2={chartHeight + 30}
+                y2={chartHeight + ySpace + 30}
                 stroke={Color.primary200_20}
                 strokeWidth={strokeWidth}
               />
-              ))}
+            ))}
           </Fragment>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((scaleIndex) => (
+            <Text
+              key={scaleIndex}
+              x={xOffset + scaleX * scaleIndex}
+              y="30"
+              fontSize="10"
+              fontWeight="italic"
+              fill={Color.primary200}
+              textAnchor="middle"
+            >
+              {scaleIndex}
+            </Text>
+          ))}
+          <Text
+            x={xOffset + scaleX * 5.5}
+            y="10"
+            fontSize="10"
+            fontStyle="italic"
+            fill={Color.primary200}
+            textAnchor="middle"
+          >
+            INTENSITY LEVEL
+          </Text>
+          <Text
+            x={60}
+            y="30"
+            fontSize="10"
+            fontStyle="italic"
+            fill={Color.primary200}
+            textAnchor="middle"
+          >
+            SEISMIC SCHEDULE
+          </Text>
         </Svg>
       </ScrollView>
     </View>
@@ -176,7 +217,7 @@ const styles = StyleSheet.create({
     marginBottom: 75,
     marginTop: 100,
     paddingBottom: 100,
-    paddingTop:20,
+    paddingTop: 20,
   },
 });
 

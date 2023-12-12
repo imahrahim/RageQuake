@@ -4,6 +4,7 @@ import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { Color, FontFamily, FontSize } from "../constants/GlobalStyles";
 import TriggerChart from "../components/DataViz/TriggerChart";
 import SituationChart from "../components/DataViz/SituationChart";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Analysis() {
   return (
@@ -18,6 +19,19 @@ export default function Analysis() {
         </View>
         <SituationChart style={styles.chartContainer} />
       </ScrollView>
+
+      <LinearGradient
+        style={{ position: "absolute", bottom: 20, width: "100%", height: 75 }}
+        colors={["#001e1d00", Color.primary600]}
+        locations={[0, 0.3]}
+        pointerEvents={"none"}
+      />
+      <LinearGradient
+        style={{ position: "absolute", top: 0, width: "100%", height: 20 }}
+        colors={[Color.primary600, "#001e1d00"]}
+        locations={[0.1, 1]}
+        pointerEvents={"none"}
+      />
     </View>
   );
 }

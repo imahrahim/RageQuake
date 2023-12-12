@@ -4,6 +4,7 @@ import { fetchRage } from "../util/http";
 import { Text, StyleSheet, View } from "react-native";
 import RageList from "../components/UI/RageList";
 import { LinearGradient } from 'expo-linear-gradient';
+import { Color } from "../constants/GlobalStyles";
 
 
 function Measurements() {
@@ -31,7 +32,6 @@ function Measurements() {
       rageQuakes={rageContext.rageQuakes}
       fallbackText="No RageQuakes found!"
     />
-    
   );
 }
 
