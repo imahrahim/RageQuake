@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useFonts, Unbounded_900Black , Unbounded_400Regular } from '@expo-google-fonts/unbounded';
+import { NotoSans_400Regular, NotoSans_400Regular_Italic } from "@expo-google-fonts/noto-sans";
 import AppLoading from "expo-app-loading";
 
 
@@ -20,6 +21,7 @@ import ManageRage from "./screens/ManageRage";
 import AddButton from "./components/UI/AddButton";
 import RageContextProvider from "./store/rage-context";
 import Seismograph from "./components/DataViz/Seismograph";
+import Interval from "./screens/Interval";
 
 
 function AnalysisTabs() {
@@ -27,8 +29,8 @@ function AnalysisTabs() {
     <MaterialTopTabs.Navigator
     screenOptions={({ route }) => ({
       tabBarLabel: ({ focused }) => {
-        const labelStyle = focused ? FontFamily.blackItalic : FontFamily.italic;
-        const labelSize = focused ? 14 : 15;
+        const labelStyle = focused ? FontFamily.black : FontFamily.regular;
+        const labelSize = focused ? 10 : 11;
         return <Text style={{fontFamily: labelStyle, fontSize: labelSize, color: Color.primary200}}>{route.name}</Text>;
       },
       tabBarShowLabel: true,
@@ -42,10 +44,8 @@ function AnalysisTabs() {
       tabBarScrollEnabled: false,
     })}
     >
-      <MaterialTopTabs.Screen name="Seismograph" component={Seismograph}/>
+      <MaterialTopTabs.Screen name="Seismograph" component={Interval}/>
       <MaterialTopTabs.Screen name="Epicenter" component={Analysis}/>
-      {/* <MaterialTopTabs.Screen name="Trigger" component={TriggerChart} />
-      <MaterialTopTabs.Screen name="Situation" component={SituationChart} /> */}
     </MaterialTopTabs.Navigator>
   );
 }
@@ -55,6 +55,8 @@ function RageQuake({ navigation }) {
   const [fontsLoaded] = useFonts({
     Unbounded_400Regular,
     Unbounded_900Black,
+    NotoSans_400Regular,
+    NotoSans_400Regular_Italic
   });
 
   if (!fontsLoaded) {
@@ -88,12 +90,12 @@ function RageQuake({ navigation }) {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                top: Platform.OS === 'ios' ? 20 : 0, // Add top: 20 for iOS
+                top: Platform.OS === 'ios' ? 20 : 0,
               }}
             >
               <Text style={{
             ...styles.navigationText,
-            fontFamily: focused ? FontFamily.blackItalic : FontFamily.italic,
+            fontFamily: focused ? FontFamily.blackItalic : FontFamily.regular,
           }}>MEASUREMENTS</Text>
             </View>
           ),
@@ -118,7 +120,7 @@ function RageQuake({ navigation }) {
             >
               <Text style={{
             ...styles.navigationText,
-            fontFamily: focused ? FontFamily.blackItalic : FontFamily.italic,
+            fontFamily: focused ? FontFamily.blackItalic : FontFamily.regular,
           }}>ANALYSIS</Text>
             </View>
           ),
@@ -171,7 +173,7 @@ const styles = StyleSheet.create({
   navigationText: {
     fontSize: FontSize.sizeMenu,
     color: Color.primary200,
-    fontFamily: FontFamily.italic
+    fontFamily: FontFamily.regular
   },
   container: {
     flex: 1,

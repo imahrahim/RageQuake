@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     marginVertical: 75,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
   },
   infoText: {
     color: Color.primary200,

@@ -11,11 +11,19 @@ export default function Analysis() {
     <View style={styles.container}>
       <ScrollView style={styles.scroll}>
         <View>
-          <Text style={styles.title}>EPICENTER INSTIGATOR</Text>
+          <Text style={styles.title}>TRIGGER HOTSPOT</Text>
+          <Text style={styles.description}>
+            Uncover the epicenters of your emotions. Discover the triggers
+            that shake your emotional Richter scale the most.
+          </Text>
         </View>
         <TriggerChart style={styles.chartContainer} />
         <View>
-        <Text style={styles.title}>TEMPER TERRAIN</Text>
+          <Text style={styles.title}>HOTSPOT NAVIGATOR</Text>
+          <Text style={styles.description}>
+            Navigate the emotional landscape and pinpoint the situations that
+            ignite your inner seismic activity. Understand your triggers better!
+          </Text>
         </View>
         <SituationChart style={styles.chartContainer} />
       </ScrollView>
@@ -46,16 +54,21 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     marginHorizontal: 20,
-    marginTop: 10,
-    padding: 20,
     borderRadius: 30,
   },
   title: {
     color: Color.primary200,
     fontFamily: FontFamily.black,
-    FontSize: FontSize.sizeTitle,
-    textAlign: 'center',
+    fontSize: FontSize.sizeTitle,
+    // textAlign: 'center',
     marginHorizontal: 20,
-    marginTop: 30,
+    marginTop: 50,
+  },
+  description: {
+    color: Color.primary200,
+    fontFamily: FontFamily.regular,
+    fontSize: FontSize.sizeDescription,
+    marginHorizontal: 20,
+    marginTop: 5,
   },
 });

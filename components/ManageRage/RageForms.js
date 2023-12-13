@@ -11,6 +11,7 @@ import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import { Color, FontFamily } from "../../constants/GlobalStyles";
 import MultiSelect from "./MultiSelect";
+import { LinearGradient } from "expo-linear-gradient";
 
 import intensityData from "../../data/intensity";
 import IntensityItem from "./IntensityItem";
@@ -161,6 +162,7 @@ export default function RageForms({
 
   return (
     <View style={styles.container}>
+    
       <View style={styles.buttonContainer}>
         <Pressable
           onPressIn={handlePressIn}
@@ -182,6 +184,7 @@ export default function RageForms({
           </Text>
         </Pressable>
       </View>
+      
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <View>
           <Input
@@ -269,13 +272,25 @@ export default function RageForms({
             }}
             style={{ height: 150 }}
           />
-          {formIsInvalid && (
+        </View>
+      </ScrollView>
+      {formIsInvalid && (
             <Text style={styles.errorText}>
               Invalid input values - please check your input data
             </Text>
           )}
-        </View>
-      </ScrollView>
+      <LinearGradient
+        style={{ position: "absolute", bottom: 0, width: '100%', height: 50 }}
+        colors={["#ffffd700", Color.primary200]}
+        locations={[0.2, 1]}
+        pointerEvents={"none"}
+      />
+              <LinearGradient
+        style={{ position: "absolute", top: 0, width: '100%', height: 50}}
+        colors={[Color.primary200, '#ffffd700']}
+        locations={[0.2, 1]}
+        pointerEvents={"none"}
+      />
     </View>
   );
 }
@@ -293,6 +308,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    zIndex: 1
   },
   text: {
     color: Color.primary600,
@@ -313,5 +329,6 @@ const styles = StyleSheet.create({
     color: Color.secondary400,
     margin: 8,
     fontFamily: FontFamily.regular,
+    zIndex: 1,
   },
 });

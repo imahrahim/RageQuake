@@ -106,7 +106,7 @@ const Seismograph = () => {
 
   pathString += ` L${xOffset},${yOffset}`;
 
-  const strokeWidth = 0.5;
+  const strokeWidth = 0.2;
 
   return (
     <View style={styles.container}>
@@ -122,8 +122,8 @@ const Seismograph = () => {
             <Fragment key={index}>
               {timestamps[index] && timestamps[index].isValid() && (
                 <Text
-                  x={10}
-                  y={coordinate.y}
+                  x={20}
+                  y={coordinate.y+4}
                   fontSize="12"
                   fontWeight="bold"
                   fill={Color.primary200}
@@ -184,7 +184,7 @@ const Seismograph = () => {
           ))}
           <Text
             x={xOffset + scaleX * 5.5}
-            y="10"
+            y="15"
             fontSize="10"
             fontStyle="italic"
             fill={Color.primary200}
@@ -193,14 +193,24 @@ const Seismograph = () => {
             INTENSITY LEVEL
           </Text>
           <Text
-            x={60}
+            x={20}
+            y="15"
+            fontSize="10"
+            fontStyle="italic"
+            fill={Color.primary200}
+            textAnchor="left"
+          >
+            SEISMIC
+          </Text>
+          <Text
+            x={20}
             y="30"
             fontSize="10"
             fontStyle="italic"
             fill={Color.primary200}
-            textAnchor="middle"
+            textAnchor="left"
           >
-            SEISMIC SCHEDULE
+            SCHEDULE
           </Text>
         </Svg>
       </ScrollView>
@@ -215,7 +225,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     marginBottom: 75,
-    marginTop: 100,
+    marginTop: 30,
     paddingBottom: 100,
     paddingTop: 20,
   },

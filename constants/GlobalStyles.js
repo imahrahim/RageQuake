@@ -3,7 +3,8 @@ import { useFonts, Unbounded_900Black , Unbounded_400Regular } from '@expo-googl
   /* fontFamily */
   export const FontFamily = {
     regular: 'Unbounded_400Regular',
-    italic: 'Unbounded_400Regular',
+    regularSans: 'NotoSans_400Regular',
+    italic: 'NotoSans_400Regular_Italic',
     black: 'Unbounded_900Black',
     blackItalic: 'Unbounded_900Black',
     
@@ -13,7 +14,7 @@ import { useFonts, Unbounded_900Black , Unbounded_400Regular } from '@expo-googl
 
 /* font sizes */
   export const FontSize = {
-    sizeMenu: 15,
+    sizeMenu: 11,
     sizeIntensity: 30,
     sizeTitle: 20,
     sizeDescription: 12,

@@ -24,9 +24,9 @@ const MultipleSelection = ({ label, data, renderItem, invalid }) => {
         end={{ x: 1, y: 0.5 }}
       />
       <LinearGradient
-        style={{ position: "absolute", left: 0, width: 15, height: '100%'}}
+        style={{ position: "absolute", left: 0, width: 10, height: '100%'}}
         colors={[Color.primary200, '#ffffd700']}
-        locations={[0.2, 1]}
+        locations={[0, 0.8]}
         pointerEvents={"none"}
         start={{ x: 0, y: 0.5 }}
         end={{ x: 1, y: 0.5 }}

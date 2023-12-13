@@ -6,6 +6,7 @@ import triggers from "../../data/trigger";
 import { RageContext } from "../../store/rage-context";
 
 import { Color, FontFamily } from "../../constants/GlobalStyles";
+import { zoomIdentity } from "d3";
 
 const TriggerChart = () => {
   const rageCtx = useContext(RageContext);
@@ -33,8 +34,9 @@ const TriggerChart = () => {
 
   const windowDimensions = useWindowDimensions();
   const centerX = (windowDimensions.width / 2) -20
-  const centerY = windowDimensions.height / 4;
+  const centerY = windowDimensions.height / 5;
   const rStep = 12;
+  
 
   return (
     
@@ -48,7 +50,7 @@ const TriggerChart = () => {
     >
       <Svg
         width={windowDimensions.width}
-        height={windowDimensions.height * 0.5}
+        height={windowDimensions.height * 0.4}
       >
         {triggerData.map((item, index) => {
           const percentage = (item.count / totalDataCount) * 100;
@@ -86,7 +88,7 @@ const TriggerChart = () => {
                 fill={Color.primary600}
                 textAnchor="left"
                 fontStyle="italic"
-                fontFamily={FontFamily.black}
+                fontFamily='Unbounded_900Black'
               >
                 {item.trigger} {}
                 {percentage.toFixed(0)}%

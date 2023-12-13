@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    marginBottom: 25,
+    marginBottom: 5,
   },
   item: {
     paddingHorizontal: 20,
     padding: 5,
-    height: 130,
+    height: 120,
     width: "100%",
     marginVertical: 10,
     borderRadius: 10,
@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
     fontSize: FontSize.sizeDate,
     color: Color.primary600,
     alignSelf: "flex-end",
-    fontFamily: FontFamily.black,
+    fontFamily: FontFamily.regular,
+    right: 15,
   },
   pressed: {
     opacity: 0.75,
