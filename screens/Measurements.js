@@ -4,7 +4,7 @@ import { fetchRage } from "../util/http";
 import { Text, StyleSheet, View } from "react-native";
 import RageList from "../components/UI/RageList";
 import { LinearGradient } from 'expo-linear-gradient';
-import { Color } from "../constants/GlobalStyles";
+import { Color, FontFamily, FontSize } from "../constants/GlobalStyles";
 
 
 function Measurements() {
@@ -28,11 +28,36 @@ function Measurements() {
 
 
   return (
+    
     <RageList
       rageQuakes={rageContext.rageQuakes}
       fallbackText="No RageQuakes found!"
     />
+
   );
 }
 
 export default Measurements;
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Color.primary600,
+  },
+  title: {
+    color: Color.primary200,
+    fontFamily: FontFamily.black,
+    fontSize: FontSize.sizeTitle,
+    // textAlign: 'center',
+    marginHorizontal: 20,
+    marginTop: 50,
+  },
+  description: {
+    color: Color.primary200,
+    fontFamily: FontFamily.regular,
+    fontSize: FontSize.sizeDescription,
+    marginHorizontal: 20,
+    marginTop: 5
+  },
+});

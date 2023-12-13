@@ -13,6 +13,12 @@ export default function RageList({ rageQuakes, fallbackText }) {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>RAGE CHRONICLES</Text>
+      <Text style={styles.description}>
+        Your rage events captured and chronicled in one scroll. Track your
+        emotional journey!
+      </Text>
+
       <SafeAreaView style={styles.contentContainer}>
         <FlatList
           data={rageQuakes}
@@ -27,10 +33,11 @@ export default function RageList({ rageQuakes, fallbackText }) {
         pointerEvents={"none"}
       />
       <LinearGradient
-        style={{ position: "absolute", top: 0, width: "100%", height: 100 }}
+        style={{ position: "absolute", top: 0, width: "100%", height: 220 }}
         colors={[Color.primary600, "#001e1d00"]}
         locations={[0.8, 1]}
         pointerEvents={"none"}
+        zIndex="2"
       />
     </View>
   );
@@ -43,8 +50,9 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    marginVertical: 75,
-    marginHorizontal: 10,
+    marginVertical: 15,
+    marginHorizontal: 0,
+    zIndex: 0,
   },
   infoText: {
     color: Color.primary200,
@@ -52,5 +60,23 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.regular,
     textAlign: "center",
     margin: 32,
+  },
+  title: {
+    color: Color.primary200,
+    fontFamily: FontFamily.black,
+    fontSize: FontSize.sizeTitle,
+    // textAlign: 'center',
+    marginHorizontal: 20,
+    marginTop: 100,
+    zIndex: 3,
+  },
+  description: {
+    color: Color.primary200,
+    fontFamily: FontFamily.regular,
+    fontSize: FontSize.sizeDescription,
+    marginHorizontal: 20,
+    marginTop: 5,
+    marginBottom: 5,
+    zIndex: 3,
   },
 });
